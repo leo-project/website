@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeoFS/Blog - LeoFS Overview</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
+    <link rel="stylesheet" href="css/compiled/theme.css" type="text/css" />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
+          type="text/css" />
+
+    <link rel="stylesheet" href="css/compiled/index.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/compiled/services.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/lib/flexslider.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/compiled/blogpost.css" type="text/css" media="screen" />
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5301881-3', 'leo-project.net');
+      ga('send', 'pageview');
+    </script>
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <!-- MENU -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><strong>LeoProject/LeoFS</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="download.html">Downloads</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="docs/index.html">LeoFS v1.3 documentation</a></li>
+                <li><a href="docs-old/index.html">LeoFS v1.3 documentation (old)</a></li>
+              </ul>
+            </li>
+            <li><a href="users.html">Users</a></li>
+            <li class="active"><a href="blog.html">BLOG</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="logos.html">Logos</a></li>
+              </ul>
+            </li>
+            <li><a href="coc.html">Code of Conduct</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="blog_post">
+      <div class="container">
+
+        <!-- Entries -->
+        <div class="row">
+          <div class="col-sm-8">
+
+            <!-- Entry #architecture #201304 -->
+            <div class="post_content">
+              <h2>LeoFS Overview</h2>
+              <span class="date">Apr 16, 2013</span>
+
+              <h3>Our Motivation</h3>
+              <img width="85%" src="img/blog/entry-1/leofs.007.jpg"/>
+              <p>We found storage problems in our company, A lot of services depended on <span class="docutils literal"><span class="pre">Expensive</span> <span class="pre">Storages</span></span>
+                which is stored  any unstructured data such as images, documents and so on.</p>
+              <p>We should resolve 3-problems:
+                <ul>
+                  <li><strong>LowROI</strong>:
+                    <ul><li>Low budget services cannot pay when using expensive storages.</li></ul>
+                  </li>
+                  <li><strong>Possibility of SPOF</strong>:
+                    <ul><li>Depending on the budget, It is difficult to build redundant-structure with expensive products.</li></ul>
+                  </li>
+                  <li><strong>Storage expansion is difficult during increasing data</strong>:
+                    <ul><li>It cannot easily add (expand) an “Expensive Storage”.</li></ul>
+                  </li>
+                </ul>
+                So It is necessary that we moved from expensive storage to something.
+              </p>
+
+              <h3>Aim At</h3>
+              <p>As the result of our try and error, we finally got satisfy our storage requirements which are 3-things:
+                <ul>
+                  <li><strong>ONE-Huge storage</strong>:
+                    <ul><li>It’s so called <strong>storage platform</strong>.</li></ul>
+                  </li>
+                  <li><strong>Non-Stop storage</strong>:
+                    <ul><li>The storage-system is requested from a lot of web services, which require is always running.</li></ul>
+                  </li>
+                  <li><strong>Specialized in the Web</strong>:
+                    <ul><li>All web-services need to easily communicate with the storage-asystem. So we decided that provide <strong>NOT FUSE</strong> but <strong>REST-API over HTTP</strong>. Using FUSE is depending on specific storage, so it cannot definitely scale.</li></ul>
+                  </li>
+                </ul>
+              </p>
+
+              <h3>LeoFS Overview</h3>
+              <img width="85%" src="img/blog/entry-1/leofs.013.jpg"/>
+              <p>LeoFS is able to store various unstructured-data such as photo, document, movie, log-data, and so on. LeoFS already covers from small-size files to large-size files. We aim to realize <strong>A Storage Platform</strong> in the cloud.</p>
+
+              <p>What we’re going to do is provide S3-API in order to build a storage platform because S3-API has provided any PG-lang clients, GUI clients, and so on. Also, they’re able to fluently communicate with LeoFS.</p>
+              <img width="85%" src="img/blog/entry-1/leofs.014.jpg"/>
+
+              <p>It needs 3-things that we have been building storage platform in our company in centralized LeoFS:
+                <ul>
+                  <li><strong>High cost performance ratio</strong></li>
+                  <li><strong>High reliability</strong></li>
+                  <li><strong>High scalability</strong></li>
+                </ul>
+              </p>
+
+              <img width="85%" src="img/blog/entry-1/leofs.019.jpg"/>
+              <p>LeoFS consists of 3-functions - <i>Storage</i>, <i>Gateway</i> and <i>Manager</i> which depend on <a href="" target="_blank">Erlang</a>.</p>
+              <ul>
+                <li><strong>Gateway</strong>
+                  <ul><li><i>Gateway</i> handle http-request/response from any clients when using REST-API OR S3-API and <i>Gateway</i> is already built in object-cache mechanism.</li></ul>
+                </li>
+                <li><strong>Storage</strong>
+                  <ul><li><i>Storage</i> handle GET, PUT and DELETE objects as well as metadata, Also <i>Storage</i> has replicator, recoverer and queueing mechanism for keep running and keep consistency.</li></ul>
+                </li>
+                <li><strong>Manager</strong>
+                  <ul><li><i>Manager</i>, which always monitors gateway-nodes and storage-nodes. Main monitoring status are node-status and RING’s checksum for keep running and keep consistency.</li></ul>
+                </li>
+              </ul>
+              <img width="85%" src="img/blog/entry-1/leofs.020.jpg"/>
+
+              <p>LeoFS’s system layout is very simple. LeoFS does not has master server, so there is NO-SPOF. Also, LeoFS already provided SNMP-Agent. You're able to easily monitor LeoFS with monitoring-tools such as Nagios and Zabbix.</p>
+
+
+              <h3>Inside LeoFS</h3>
+              <img width="85%" src="img/blog/entry-1/leofs.024.jpg"/>
+              <p>Mutual function set of loosely connect with Erlang’s RPC as well as the internal storage-cluster.</p>
+
+              <h4>LeoFS Gateway</h4>
+              <p><strong>LeoFS-Gateway</strong> consists of Stateless Proxy and Object Cache. You can easily increase gateway-nodes during high-load. We chose Cowboy as <i>Gateway’s HTTP-Server</i>, because we expected HIGH-Performance.</p>
+              <p>It already provide RestAPI and S3-API. They are simpler APIs. it requests to a storage node when inquiring RING, which is based on <i>consistent-hashing</i>.</p>
+              <p>Also, Object-cache mechanism (hierarchical cache) realizes reduction of traffic between <i>Gateway</i> and <i>Storage</i>.</p>
+
+
+              <h4>LeoFS Storage</h4>
+              <img width="85%" src="img/blog/entry-1/leofs.031.jpg"/>
+              <p><strong>LeoFS-Storage</strong> consists of storage-engine, object-replicator, object-repairer, message queuing, and so on. Also, each storage-engine’s worker consists of metadata(s) and object-container(s) which is log-structured file.<p>
+              <p>A file (a raw data) is replicated to other nodes up to defined a number of replicas as well as metadata.</p>
+              <img width="85%" src="img/blog/entry-1/leofs.033.jpg"/>
+
+              <p>LeoFS’s data structure has 3-layers. Metadata consists of filename, file-size, checksum, and so on. An actual object is retrieved with file-name, file-size and offset. Needle is LeoFS’s original file format. A needle consists of metadata, an actual-file and footer. It’s able to recover metadata from a needle.</p>
+
+              <p>An object container consists of super-block and any needles.</p>
+              <ul>
+                <li>In case of retrieving an object from the storage:
+                  <ul>
+                    <li><i>Storage's engine</i> retrieves a metadata from the metadata-storage</li>
+                    <li>Retrieves an object from the object-container when using file-size and container’s offset</li>
+                  </ul>
+                </li>
+                <li>In case of inserting an object into the storage:
+                  <ul>
+                    <li>First, <i>Storage's engine</i> inserts a metadata into the metadata-storage</li>
+                    <li>Appends an object into the object storage container</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p>This mechanism occurs side-effects. <i>Storage's engines</i> sometimes need to remove unnecessary objects as well as metadata. LeoFS has been taking a measure for less an effect of compaction, which is phased-compaciton. We’re considering to support auto-compaction.</p>
+
+              <h4>LeoFS Manager</h4>
+              <img width="85%" src="img/blog/entry-1/leofs.042.jpg"/>
+              <p><i>Manager</i> distributes <i>RING</i> and <i>Storage cluster’s members</i>. It always monitors Node status and RING status, because LeoFS is required to realize <strong>high availability</strong>.<p>
+              <p>Also, <i>Manager</i> provides that it’s able to easily operation methods (suspend/resume/detach/whereis etc) for <i>Gateway</i> and <i>Storage</i> and provide RING to <i>Gateway</i> and <i>Storage</i>, so “LeoFS-manager” manages “RING”. If it found incorrect RING, it fixes RING’s consistency. If <i>Storage</i> found that, it notify that to <i>Manager</i>. Eventually, the problem is resolved by <i>Manager</i>.</p>
+
+
+              <h3>Wrap Up</h3>
+              <p>What we're really focused on is <strong>high cost performance ratio</strong>, <strong>high reliability</strong> and <strong>high scalability</strong> in order to realize to build <strong>a storage platform</strong> in our company. It will not succeed, even if one of them is lacking, I believe.</p>
+
+              <div class="author_box">
+                <div class="author"><a href="https://about.me/yosukehara" target="_blank">Yosuke Hara</a></div>
+                <div class="area">RIT</div>
+              </div>
+            </div>
+
+            <!-- DISQUS -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+              var disqus_shortname = 'leo-project'; // required: replace example with your forum shortname
+              (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!-- DISQUS.end -->
+          </div>
+          <!-- Entry.end -->
+
+          <!-- SideBar -->
+          <div class="col-sm-4">
+            <div class="sidebar">
+              <div class="box">
+                <div class="sidebar_header">
+                  <h4>Menu</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-architecture.html">Architecture</a></li>
+                    <li><a href="blog-benchmark.html">Benchmark</a></li>
+                    <li><a href="blog-leofs-client.html">LeoFS Clients</a></li>
+                  </ul>
+                </ul>
+              </div>
+
+              <!-- Recent Posts  -->
+              <div class="box box2">
+                <div class="sidebar_header">
+                  <h4>Recent Posts</h4>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-7.html">Quick Start LeoFS with Java-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-6.html">Quick Start LeoFS with Ruby-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-5.html">Erlang User Conference 2014 in Stockholm</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-4.html">Quick Start LeoFS with PHP-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-3.html">Multi Data Center Replication</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-2.html">Benchmark Results of LeoFS v0.14.0</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-1.html">LeoFS Overview</a>
+                </div>
+              </div>
+
+              <!-- Tweets -->
+              <div class="box box3">
+                <a class="twitter-timeline" href="https://twitter.com/LeoFastStorage" data-widget-id="324312371701096448">Tweets by @LeoFastStorage</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^https:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </div>
+
+              <!-- Archives
+              <div class="box last">
+                <div class="sidebar_header">
+                  <h4>Archives</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-201404.html">Apr 2014</a></li>
+                    <li><a href="blog-201304.html">Apr 2013</a></li>
+                  </ul>
+                </ul>
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- starts footer -->
+      <footer id="footer">
+        <div class="container">
+          <div class="row credits">
+            <div class="col-md-12">
+              <div class="row social">
+                <div class="col-md-12">
+                  <a href="https://www.facebook.com/org.leofs" target="_blank" class="facebook">
+                    <span class="socialicons ico1"></span>
+                    <span class="socialicons_h ico1h"></span>
+                  </a>
+                  <a href="https://twitter.com/LeoFastStorage" target="_blank" class="twitter">
+                    <span class="socialicons ico2"></span>
+                    <span class="socialicons_h ico2h"></span>
+                  </a>
+                  <a href="https://plus.google.com/u/0/communities/114746636425820194241" target="_blank" class="gplus">
+                    <span class="socialicons ico3"></span>
+                    <span class="socialicons_h ico3h"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="row copyright">
+                <div class="col-md-12">
+                  © 2012-2017 <a href="../index.html">Leo Project</a>. All rights reserved. / Sponsored by <a href="https://global.rakuten.com/corp/" target="_blank">Rakuten, Inc</a>. and Supoorted by <a href="https://rit.rakuten.co.jp/" target="_blank">Rakuten Institute of Technology</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <script src="https://code.jquery.com/jquery-latest.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/theme.js"></script>
+  </body>
+</html>

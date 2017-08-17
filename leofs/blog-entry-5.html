@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeoFS/Blog - Erlang User Conference 2014 in Stockholm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
+    <link rel="stylesheet" href="css/compiled/theme.css" type="text/css" />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
+          type="text/css" />
+
+    <link rel="stylesheet" href="css/compiled/index.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/compiled/services.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/lib/flexslider.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/compiled/blogpost.css" type="text/css" media="screen" />
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5301881-3', 'leo-project.net');
+      ga('send', 'pageview');
+    </script>
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <!-- MENU -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><strong>LeoProject/LeoFS</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="download.html">Downloads</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="docs/index.html">LeoFS v1.3 documentation</a></li>
+                <li><a href="docs-old/index.html">LeoFS v1.3 documentation (old)</a></li>
+              </ul>
+            </li>
+            <li class="active"><a href="blog.html">BLOG</a></li>
+            <li><a href="users.html">Users</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="logos.html">Logos</a></li>
+              </ul>
+            </li>
+            <li><a href="coc.html">Code of Conduct</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="blog_post">
+      <div class="container">
+
+        <!-- Entries -->
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- Entry.start -->
+            <div class="post_content">
+              <h2>Erlang User Conference 2014 in Stockholm</h2>
+              <span class="date">June 16, 2014</span>
+
+							<!-- Introduction -->
+              <p>I attended and made a presentation at <a href="https://www.erlang-factory.com/conference/show/conference-23/home/" target="_blank">Erlang User Conference 2014</a> - <em>the 20th Conference</em> in <a href="https://www.google.co.jp/maps/place/Torkel+Knutssonsgatan+2/@59.3207026,18.0562029,17z/data=!3m1!4b1!4m2!3m1!1s0x465f77e7180fbc0b:0xdd69bd2027f55d19" target="_blank">Stockholm</a>, which is a two-day tech conference focused on the Erlang programming language. It had very informative sessions for me.</p>
+
+              <p><img src="img/photos/euc2014_1.png" alt="image" style="max-width:100%;" /></p>
+              <ul>
+                <li>Tracks:
+                  <ul>
+                    <li>1st day:
+                      <ul>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#erlang-vm" target="_blank">Erlang VM</a></li>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#next-generation-databases--analytics" target="_blank">Next Generation Databases &amp; Analytics</a></li>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#infrastructure--distribution" target="_blank">Infrastructure &amp; Distribution</a></li>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#cool-tools--gadgets" target="_blank">Cool Tools &amp; Gadgets</a></li>
+                      </ul>
+                    </li>
+                    <li>2nd day:
+                      <ul>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#scalability--multicore" target="_blank">Scalability &amp; Multi-Core</a></li>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#case-studies--architecture" target="_blank">Case Studies &amp; Architecture</a></li>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#devops" target="_blank">DevOps</a></li>
+                        <li><a href="https://www.erlang-factory.com/euc2014/tracks#language-evolution" target="_blank">Language Evolution</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <p>I share several impressive sessions in this conference.</p>
+
+							<!-- 1st Day -->
+              <h2>1st Day - June 9th, 2014</h2>
+							<!-- Session-1 -->
+              <h3><a href="https://www.erlang-factory.com/euc2014/yosuke-hara" target="_blank">Scaling and High Performance Storage System: LeoFS - Yosuke Hara</a></h3>
+
+              <p>I made a presentation about design and architecture of LeoFS as well as demonstrate how developers/users are able to easily run and manage LeoFS in their environments for 45min, which was forcused on <em>the overview</em>, <em>the benchmark report</em> and <em>the multi datacenter replication</em>.</p>
+
+              <p><img src="img/photos/euc2014_2.jpg" alt="image" style="max-width:100%;" /></p>
+              <p>I shared the future plan of LeoFS. We’re aiming to centralise huge amount and various kind unstructured data in LeoFS. We have been tackling to implement NFS Support as another way of the connection. Because we thought we support both <code>S3/REST-API</code> for online transaction and <code>NFS not FUSE</code> for backend services in order to realise <strong>DATA-HUB</strong> which is needed at our company and services.</p>
+              <p>Also, Rakuten software engineer, <a href="https://www.linkedin.com/pub/hiroki-matsue/87/b30/17a" target="_blank">Hiroki</a>, He shared <em>LeoFS administration at Rakuten</em> for 7min in this presentation. He introduced two use cases of LeoFS, which are <em>the storage platform</em> and <em>the file sharing service for in-house</em>.</p>
+
+              <iframe src="https://www.slideshare.net/slideshow/embed_code/35673208" width="512" height="421" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+              <p>I had the great opportunity to deliver the presentation at the EUC2014 because our presentation got around 40 attendees and sevearal questions for it. And also, I acquired high potential users through this conference.</p>
+
+							<!-- Session-2 -->
+              <h3><a href="https://www.erlang-factory.com/euc2014/loc-hoguin" target="_blank">The Last REST Client You Will Ever Need - Loïc Hoguin</a></h3>
+              <p><img src="img/photos/euc2014_3.jpg" alt="image" style="max-width:100%;" /></p>
+              <p>Loïc, who started the new project - <a href="https://github.com/bed-project" target="_blank">bed-project</a>. He mentioned <strong>BED</strong> - <em>Binary Electronic Data</em> is the new data format instead of JSON or XML or MsgPack or HTML when using REST-API.</p>
+
+              <ul>
+                <li>Goal:
+                  <ul>
+                    <li>Hyperlinks and link relations</li>
+                    <li>Binary, explicit sizes, efficient to parse</li>
+                    <li>Small, exponentially smaller the larger the data gets</li>
+                    <li>Good type coverage, extensible</li>
+                    <li>No NULL value</li>
+                    <li>Fully specified</li>
+                  </ul>
+                </li>
+                <li>Binary Electronic Data specification
+                  <ul>
+                    <li>This binary data serialization format was created for use in
+                      RESTful services or with Websockets. Compared to most other
+                      formats, it comes with three special types: hyperlinks,
+                      symbols and <a href="https://www.ietf.org/rfc/rfc3339.txt" target="_blank">RFC 3339 dates</a>.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p>I expect he release a brilliant product neer the future similar to <a href="https://github.com/extend/cowboy" target="_blank">Cowboy</a>.</p>
+
+							<!-- Session-3 -->
+              <h3><a href="https://www.erlang-factory.com/euc2014/heinz-gies" target="_blank">Building a Cloud with Erlang and SmartOS - How Hard Could it Possibly Be? - Heinz Gies</a></h3>
+
+              <p><img src="img/photos/euc2014_4.jpg" alt="image" style="max-width:100%;" /></p>
+              <p>Heinz, who has been providing and developing <a href="https://project-fifo.net/" target="_blank">Project FiFo</a> from 2012, which is an open-source Cloud Management and Orchestration system for SmartOS virtualisation environments.</p>
+              <p>He shared some of the issues throughout FiFo's history:</p>
+              <ul>
+                <li>The fail of Clojure Script</li>
+                <li>The fail of a single host</li>
+                <li>The fail of distribution</li>
+                <li>The fail of storing JSON</li>
+                <li>The fail of CAP</li>
+              </ul>
+
+              <p>He learned what from several failures and introduced how it solved. <em>The fail of distribution</em> and <em>The fail of CAP</em> were very informative talks for me.</p>
+
+							<!-- Session-4 -->
+              <h3><a href="https://www.erlang-factory.com/euc2014/ulf-wiger" target="_blank">Locks - Erlang-style Scalable Distributed Locking - Ulf Wiger</a></h3>
+
+              <p><img src="img/photos/euc2014_5.jpg" alt="image" style="max-width:100%;" /></p>
+              <p><strong>Locks project</strong> implements a powerful locking library, which manages to perform deadlock detection in an scalable manner. The algorithm is designed in 1993. Also, from 2012 to 2013, he expanded it as follows:</p>
+              <ul>
+                <li>Read and Write locks</li>
+                <li>Hierarchical locks</li>
+                <li>Multi-node locks</li>
+                <li>gen_leader-type behavior</li>
+              </ul>
+              <p>Also, it is based on computing potential indirect dependencies and informing dependent transactions in a <code>fill-in-the-blanks</code> manner.</p>
+              <ul>
+                <li>Related algorithms:
+                  <ul>
+                    <li><a href="https://www.cs.colostate.edu/~cs551/CourseNotes/Deadlock/DDCMHAlg.html" target="_blank">Chandy-Misra-Hass Detection Algorithm</a></li>
+                    <li><a href="https://www.cs.colostate.edu/~cs551/CourseNotes/Deadlock/DDSilGal94.html" target="_blank">Silberschatz-Galvin Detection Algorithm</a></li>
+                  </ul>
+                </li>
+                <li>Repository:
+                  <ul>
+                    <li><a href="https://github.com/uwiger/locks" target="_blank">uwiger/locks</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <p>This session was very important for me because I'm planning to design and implement <strong>the lock-mechanism</strong> in <a href="https://leo-project.net/leofs" target="_blank">LeoFS</a> from a couple of months.</p>
+
+							<!-- 2nd Day -->
+              <h2>2nd Day - June 10th, 2014</h2>
+							<!-- Session-5 -->
+              <h3><a href="https://www.erlang-factory.com/euc2014/peer-stritzinger" target="_blank">Heavy Industry Erlang - Peer Stritzinger</a></h3>
+
+              <p><img src="img/photos/euc2014_6.jpg" alt="image" style="max-width:100%;" /></p>
+              <p>Peer Stritzinger, who introduce a short overview of standardized programming languages used in <a href="https://en.wikipedia.org/wiki/Programmable_logic_controller" target="_blank">PLC</a>. He has been using <a href="https://www.rtems.org"  target="_blank">RTEMS Realtime Operating System</a> which is a open-source hard-realtime operating system for small embedded systems.</p>
+              <ul>
+                <li>RTEMS's features:
+                  <ul>
+                    <li>For Hard-Real-Time and/or Embedded Applications</li>
+                    <li>Small Resource Usage</li>
+                    <li>Reliable Realtime Behaviours with pluggable Schedulers</li>
+                    <li>Posix API</li>
+                    <li>Processes are actually threads</li>
+                    <li>No virtual memory</li>
+                    <li>No memory protection</li>
+                    <li>Runs on basically all 32bit Architectures</li>
+                    <li>SMP Support</li>
+                  </ul>
+                </li>
+              </ul>
+              <p><img src="img/slides/euc2014/euc2014-peer-stritzinger.jpg" alt="image" style="max-width:100%;" /></p>
+              <p>His project - <a href="https://www.grisp.org/" target="_blank">GRISP</a> is Erlang on RTEMS which realized <em>Hard Realtime Erlang Processes</em>.</p>
+              <ul>
+                <li>Hard Realtime Erlang Processes:
+                  <ul>
+                    <li>Fixed two part Heaps</li>
+                    <li>Optional interruptible GC</li>
+                    <li>Crash on Deadline Miss or out of Heap</li>
+                    <li>Optional Auto-Restart</li>
+                    <li>Static analysis on Communication Graph</li>
+                  </ul>
+                </li>
+              </ul>
+              <p>I was really interested in Erlang on RTEMS - embedded Erlang through this session. So I'll look into the potential in our company/services.</p>
+
+							<!-- Session-6 -->
+              <h3>Latest News from the OTP Team - Kenneth Lundin</h3>
+              <p>Erlang OTP TEAM shared several plans which is included in the next minor and major version.</p>
+              <ul>
+                <li><p>Plan:</p>
+                  <ul>
+                    <li>About <code>Map</code> as one of the new features of Erlang 17</li>
+                    <li>Planning to improve binary-related functions</li>
+                    <li>Planning to Chage the license from EPL - Erlang Public License to <a href="https://tldrlegal.com/license/apache-license-2.0-%28apache-2.0%29" target="_blank">Apache License Version 2.0</a></li>
+                  </ul>
+                </li>
+                <li><p>Release Schedules:</p></li>
+              </ul>
+              <p><img src="img/photos/euc2014_8.jpg" alt="image" style="max-width:100%;" /></p>
+
+
+							<!-- 3rd Day -->
+              <h2>3rd Day - June 11th, 2014</h2>
+              <p>I attended at <a href="https://www.erlang-factory.com/euc2014/#tutorials"  target="_blank">the Tutorials</a> which is a part of the Erlang conference at Ericsson HQ. It had very informative tutorials for me as follows:</p>
+              <ul>
+                <li><a href="https://www.erlang-factory.com/euc2014/kostis-sagonas" target="_blank">Scalability and the Erlang VM - Kostis Sagonas</a></li>
+                <li><a href="https://www.erlang-factory.com/euc2014/natalia-chechina" target="_blank">Scalable Distributed Erlang - Natalia Chechina</a></li>
+                <li><a href="https://github.com/huiqing/percept2" target="_blank">Profiling with Percept2 - Huiqing Li &amp; Simon Thompson</a></li>
+              </ul>
+              <p><img src="img/photos/euc2014_14.jpg" alt="image" style="max-width:100%;" /></p>
+
+							<!-- Session-7 -->
+              <h3><a href="https://www.erlang-factory.com/euc2014/natalia-chechina" target="_blank">Scalable Distributed Erlang - Natalia Chechina</a></h3>
+              <p>Natalia, who has been research <em>Scalable Distributed Erlang</em> which is an extension of distributed Erlang functional programming language for reliable scalability. <a href="https://www.release-project.eu/" target="_blank">The RELEASE project</a> aims to improve the scalability of Erlang programming language because current Erlang has problem of scalability.</p>
+
+              <ul>
+                <li><a href="https://release-project.softlab.ntua.gr/index.php/software" target="_blank">The RELEASE project's software</a>
+                  <ul>
+                    <li><a href="https://release.softlab.ntua.gr/bencherl/" target="_blank">BenchErl</a></li>
+                    <li><a href="https://www.erlang.org/doc/apps/dialyzer/dialyzer_chapter.html" target="_blank">Dialyzer</a></li>
+                    <li><a href="https://github.com/huiqing/percept2" target="_blank">Percept2</a></li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p><img src="img/slides/euc2014/euc2014-natalia-chechina.jpg" alt="image" style="max-width:100%;" /></p>
+              <p>In the current survey, the project does not supoort dynamic configuration for <em>Scalable Distributed Erlang</em>. I hope they solve it, and also, I'll survey <em>Scalable Distributed Erlang</em> by myself because our projects - <a href="https://leo-project.net/leofs" target="_blank">LeoFS</a> and others need this mechanism.</p>
+
+							<!-- Wrap up -->
+              <h2>Wrap Up</h2>
+              <p>I had really great opportunity on <a href="https://www.erlang-factory.com/conference/show/conference-23/home/" target="_blank">Erlang User Conference 2014</a> because I delivered the presentation about our project and talked about LeoFS and technology topics with engineers as well as met my friends.</p>
+              <p>Furthermore, Thanks to Peer Stritzinger, I had interesting in a new category which is <em>Erlang on RTEMS</em>. And thanks to Natalia Chechina, I had recognized more scalability for Erlang with your project.</p>
+              <p>I'm looking forward to attend and make a presentation at this conference, again. So I keep growing our projects, going forward.</p>
+
+							<!-- Appendix -->
+              <h2>Stockholm's photos</h2>
+              <a data-pin-do="embedBoard" href="https://jp.pinterest.com/yosukehara/stockholm-june-2014/"data-pin-scale-width="80" data-pin-scale-height="200" data-pin-board-width="400">Follow Yosuke's board Stockholm June, 2014 on Pinterest.</a><!-- Please call pinit.js only once per page --><script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+
+              <div class="author_box">
+                <div class="author"><a href="https://about.me/yosukehara" target="_blank">Yosuke Hara</a></div>
+                <div class="area">RIT</div>
+              </div>
+            </div>
+
+            <!-- DISQUS -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+              var disqus_shortname = 'leo-project'; // required: replace example with your forum shortname
+              (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!-- DISQUS.end -->
+          </div>
+          <!-- Entry.end -->
+
+          <!-- SideBar -->
+          <div class="col-sm-4">
+            <div class="sidebar">
+              <div class="box">
+                <div class="sidebar_header">
+                  <h4>Menu</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-architecture.html">Architecture</a></li>
+                    <li><a href="blog-benchmark.html">Benchmark</a></li>
+                    <li><a href="blog-leofs-client.html">LeoFS Clients</a></li>
+                  </ul>
+                </ul>
+              </div>
+
+              <!-- Recent Posts  -->
+              <div class="box box2">
+                <div class="sidebar_header">
+                  <h4>Recent Posts</h4>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-7.html">Quick Start LeoFS with Java-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-6.html">Quick Start LeoFS with Ruby-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-5.html">Erlang User Conference 2014 in Stockholm</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-4.html">Quick Start LeoFS with PHP-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-3.html">Multi Data Center Replication</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-2.html">Benchmark Results of LeoFS v0.14.0</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-1.html">LeoFS Overview</a>
+                </div>
+              </div>
+
+              <!-- Tweets -->
+              <div class="box box3">
+                <a class="twitter-timeline" href="https://twitter.com/LeoFastStorage" data-widget-id="324312371701096448">Tweets by @LeoFastStorage</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^https:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </div>
+
+              <!-- Archives
+                   <div class="box last">
+                     <div class="sidebar_header">
+                       <h4>Archives</h4>
+                     </div>
+                     <ul class="sidebar_menu">
+                       <ul>
+                         <li><a href="blog-201404.html">Apr 2014</a></li>
+                         <li><a href="blog-201304.html">Apr 2013</a></li>
+                       </ul>
+                     </ul>
+                   </div>
+                   -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- starts footer -->
+      <footer id="footer">
+        <div class="container">
+          <div class="row credits">
+            <div class="col-md-12">
+              <div class="row social">
+                <div class="col-md-12">
+                  <a href="https://www.facebook.com/org.leofs" target="_blank" class="facebook">
+                    <span class="socialicons ico1"></span>
+                    <span class="socialicons_h ico1h"></span>
+                  </a>
+                  <a href="https://twitter.com/LeoFastStorage" target="_blank" class="twitter">
+                    <span class="socialicons ico2"></span>
+                    <span class="socialicons_h ico2h"></span>
+                  </a>
+                  <a href="https://plus.google.com/u/0/communities/114746636425820194241" target="_blank" class="gplus">
+                    <span class="socialicons ico3"></span>
+                    <span class="socialicons_h ico3h"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="row copyright">
+                <div class="col-md-12">
+                  © 2012-2017 <a href="../index.html">Leo Project</a>. All rights reserved. / Sponsored by <a href="https://global.rakuten.com/corp/" target="_blank">Rakuten, Inc</a>. and Supported by <a href="https://rit.rakuten.co.jp/" target="_blank">Rakuten Institute of Technology</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <script src="https://code.jquery.com/jquery-latest.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/theme.js"></script>
+  </body>
+</html>

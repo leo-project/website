@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeoFS/Blog - Benchmark results of LeoFS v0.14.0</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
+    <link rel="stylesheet" href="css/compiled/theme.css" type="text/css" />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
+          type="text/css" />
+
+    <link rel="stylesheet" href="css/compiled/index.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/compiled/services.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/lib/flexslider.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/compiled/blogpost.css" type="text/css" media="screen" />
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5301881-3', 'leo-project.net');
+      ga('send', 'pageview');
+    </script>
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <!-- MENU -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><strong>LeoProject/LeoFS</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="download.html">Downloads</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="docs/index.html">LeoFS v1.3 documentation</a></li>
+                <li><a href="docs-old/index.html">LeoFS v1.3 documentation (old)</a></li>
+              </ul>
+            </li>
+            <li><a href="users.html">Users</a></li>
+            <li class="active"><a href="blog.html">BLOG</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="logos.html">Logos</a></li>
+              </ul>
+            </li>
+            <li><a href="coc.html">Code of Conduct</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="blog_post">
+      <div class="container">
+
+        <!-- Entries -->
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- Entry.start -->
+            <div class="post_content">
+              <h2>Benchmark results of LeoFS v0.14.0</h2>
+              <span class="date">Apr 18, 2013</span>
+
+              <p>We made benchmarks for LeoFS v0.14.0 on Apr 12th, 2013. Regrading test-environment is as follows. We used typical spec of servers and CentOS 6.3. Also, <a href="docs/installation/install.html#set-up-leofs-s-system-configuration-only-leofs-manager" target="_blnak">LeoFS’s consistency level</a> was the same as production settings.</p>
+
+              <h3>Test Environment</h3>
+              <table border="1" class="docutils">
+                <colgroup>
+                  <col width="29%" />
+                  <col width="71%" />
+                </colgroup>
+                <thead valign="bottom">
+                  <tr class="row-odd"><th class="head">Item</th>
+                    <th class="head">Value</th>
+                  </tr>
+                </thead>
+                <tbody valign="top">
+                  <tr class="row-even"><td colspan="2"><strong>Hardware</strong></td>
+                  </tr>
+                  <tr class="row-odd"><td>CPU</td>
+                    <td>8-core</td>
+                  </tr>
+                  <tr class="row-even"><td>RAM</td>
+                    <td>16GB</td>
+                  </tr>
+                  <tr class="row-odd"><td>HDD</td>
+                    <td>7200rpm (Capacity:1TB)</td>
+                  </tr>
+                  <tr class="row-even"><td>Network</td>
+                    <td>10Gbps ethernet</td>
+                  </tr>
+                  <tr class="row-odd"><td colspan="2"><strong>OS/Middleware</strong></td>
+                  </tr>
+                  <tr class="row-even"><td>OS</td>
+                    <td>Linux 2.6.32-279.22.1.el6.x86_64</td>
+                  </tr>
+                  <tr class="row-odd"><td>Erlang</td>
+                    <td>Erlang R15B03-1 (erts-5.9.3.1)</td>
+                  </tr>
+                  <tr class="row-even"><td colspan="2"><strong>LeoFS Cluster</strong></td>
+                  </tr>
+                  <tr class="row-odd"><td># of Benchmarker</td>
+                    <td>1</td>
+                  </tr>
+                  <tr class="row-even"><td># of LeoFS-Manager</td>
+                    <td>1</td>
+                  </tr>
+                  <tr class="row-odd"><td># of LeoFS-Gateway</td>
+                    <td>2</td>
+                  </tr>
+                  <tr class="row-even"><td># of LeoFS-Storage</td>
+                    <td>5</td>
+                  </tr>
+                  <tr class="row-odd"><td colspan="2"><strong>Consistency Level</strong></td>
+                  </tr>
+                  <tr class="row-even"><td># of replicas</td>
+                    <td>3</td>
+                  </tr>
+                  <tr class="row-odd"><td># of successful WRITE</td>
+                    <td>2</td>
+                  </tr>
+                  <tr class="row-even"><td># of successful GET</td>
+                    <td>1</td>
+                  </tr>
+                  <tr class="row-odd"><td colspan="2"><strong>Prerequirements</strong></td>
+                  </tr>
+                  <tr class="row-even"><td># of loaded objects</td>
+                    <td>100,000</td>
+                  </tr>
+                  <tr class="row-odd"><td colspan="2"><strong>Stress Tool Settings (basho_bench&#8217;s configuration file)</strong></td>
+                  </tr>
+                  <tr class="row-even"><td colspan="2">R:8 W:2, &#8220;exponential_bin&#8221;</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3>Test Results</h3>
+              <p>Test results is as follows. From each benchmark, we found the bottle-neck was disc I/O. Also, retrieving of small file size (average 128KB) has the room for an improvement. So We have been improving Leo's object-cache lib from this week.</p>
+
+              <img alt="benchmark results of leofs v0.14.0" src="img/blog/entry-2/bench-results-0.14.0.png" width="85%">
+
+              <h4>Detail benchmark configuration for average of 128KB (file size)</h4>
+              <table border="1" class="docutils">
+                <colgroup>
+                  <col width="19%">
+                  <col width="81%">
+                </colgroup>
+                <thead valign="bottom">
+                  <tr class="row-odd"><th class="head">Item</th>
+                    <th class="head">Value</th>
+                  </tr>
+                </thead>
+                <tbody valign="top">
+                  <tr class="row-even"><td>Mode</td>
+                    <td>Max</td>
+                  </tr>
+                  <tr class="row-odd"><td>Duration</td>
+                    <td>1,000 sec</td>
+                  </tr>
+                  <tr class="row-even"><td># of concurrents</td>
+                    <td>64</td>
+                  </tr>
+                  <tr class="row-odd"><td>Driver</td>
+                    <td>basho_bench_driver_leofs</td>
+                  </tr>
+                  <tr class="row-even"><td>Misc</td>
+                    <td><table border="1" class="first last docutils">
+                        <colgroup>
+                          <col width="30%">
+                          <col width="70%">
+                        </colgroup>
+                        <tbody valign="top">
+                          <tr class="row-odd"><td>http_raw_request_timeout</td>
+                            <td>30,000ms (30sec)</td>
+                          </tr>
+                          <tr class="row-even"><td>value_generator_source_size</td>
+                            <td>4,194,304 bytes</td>
+                          </tr>
+                          <tr class="row-odd"><td>key_generator</td>
+                            <td>partitioned_sequential_int: 100,000</td>
+                          </tr>
+                          <tr class="row-even"><td>value_generator</td>
+                            <td>exponential_bin: min-size:16,384 bytes, avg-size:524,288 bytes</td>
+                          </tr>
+                          <tr class="row-odd"><td>operations</td>
+                            <td>READ : WRITE = 80% : 20%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h4>Detail benchmark configuration for average of 1MB (file size)</h4>
+              <table border="1" class="docutils">
+                <colgroup>
+                  <col width="19%">
+                  <col width="81%">
+                </colgroup>
+                <thead valign="bottom">
+                  <tr class="row-odd"><th class="head">Item</th>
+                    <th class="head">Value</th>
+                  </tr>
+                </thead>
+                <tbody valign="top">
+                  <tr class="row-even"><td>Mode</td>
+                    <td>Max</td>
+                  </tr>
+                  <tr class="row-odd"><td>Duration</td>
+                    <td>1,000 sec</td>
+                  </tr>
+                  <tr class="row-even"><td># of concurrents</td>
+                    <td>64</td>
+                  </tr>
+                  <tr class="row-odd"><td>Driver</td>
+                    <td>basho_bench_driver_leofs</td>
+                  </tr>
+                  <tr class="row-even"><td>Misc</td>
+                    <td><table border="1" class="first last docutils">
+                        <colgroup>
+                          <col width="30%">
+                          <col width="70%">
+                        </colgroup>
+                        <tbody valign="top">
+                          <tr class="row-odd"><td>http_raw_request_timeout</td>
+                            <td>30,000ms (30sec)</td>
+                          </tr>
+                          <tr class="row-even"><td>value_generator_source_size</td>
+                            <td>4,194,304 bytes</td>
+                          </tr>
+                          <tr class="row-odd"><td>key_generator</td>
+                            <td>partitioned_sequential_int, 100,000</td>
+                          </tr>
+                          <tr class="row-even"><td>value_generator</td>
+                            <td>exponential_bin: min-size:16,384 bytes, avg-size:1,048,576 bytes</td>
+                          </tr>
+                          <tr class="row-odd"><td>operations</td>
+                            <td>READ : WRITE = 80% : 20%</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3>Appendix</h3>
+              <ul>
+                <li><a href="docs/installation/install.html#set-up-leofs-s-system-configuration-only-leofs-manager" target="_blank">LeoFS’s Consistency Level</a></li>
+                <li><a href="docs/benchmark.html" target="_blank">Benchmark-er (basho_bench) setup document</a></li>
+              </ul>
+
+              <div class="author_box">
+                <div class="author"><a href="https://about.me/yosukehara" target="_blank">Yosuke Hara</a></div>
+                <div class="area">RIT</div>
+              </div>
+            </div>
+
+            <!-- DISQUS -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+              var disqus_shortname = 'leo-project'; // required: replace example with your forum shortname
+              (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!-- DISQUS.end -->
+          </div>
+          <!-- Entry.end -->
+
+          <!-- SideBar -->
+          <div class="col-sm-4">
+            <div class="sidebar">
+              <div class="box">
+                <div class="sidebar_header">
+                  <h4>Menu</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-architecture.html">Architecture</a></li>
+                    <li><a href="blog-benchmark.html">Benchmark</a></li>
+                    <li><a href="blog-leofs-client.html">LeoFS Clients</a></li>
+                  </ul>
+                </ul>
+              </div>
+
+              <!-- Recent Posts  -->
+              <div class="box box2">
+                <div class="sidebar_header">
+                  <h4>Recent Posts</h4>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-7.html">Quick Start LeoFS with Java-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-6.html">Quick Start LeoFS with Ruby-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-5.html">Erlang User Conference 2014 in Stockholm</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-4.html">Quick Start LeoFS with PHP-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-3.html">Multi Data Center Replication</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-2.html">Benchmark Results of LeoFS v0.14.0</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-1.html">LeoFS Overview</a>
+                </div>
+              </div>
+
+              <!-- Tweets -->
+              <div class="box box3">
+                <a class="twitter-timeline" href="https://twitter.com/LeoFastStorage" data-widget-id="324312371701096448">Tweets by @LeoFastStorage</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^https:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </div>
+
+              <!-- Archives
+              <div class="box last">
+                <div class="sidebar_header">
+                  <h4>Archives</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-201404.html">Apr 2014</a></li>
+                    <li><a href="blog-201304.html">Apr 2013</a></li>
+                  </ul>
+                </ul>
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- starts footer -->
+      <footer id="footer">
+        <div class="container">
+          <div class="row credits">
+            <div class="col-md-12">
+              <div class="row social">
+                <div class="col-md-12">
+                  <a href="https://www.facebook.com/org.leofs" target="_blank" class="facebook">
+                    <span class="socialicons ico1"></span>
+                    <span class="socialicons_h ico1h"></span>
+                  </a>
+                  <a href="https://twitter.com/LeoFastStorage" target="_blank" class="twitter">
+                    <span class="socialicons ico2"></span>
+                    <span class="socialicons_h ico2h"></span>
+                  </a>
+                  <a href="https://plus.google.com/u/0/communities/114746636425820194241" target="_blank" class="gplus">
+                    <span class="socialicons ico3"></span>
+                    <span class="socialicons_h ico3h"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="row copyright">
+                <div class="col-md-12">
+                  © 2012-2017 <a href="../index.html">Leo Project</a>. All rights reserved. / Sponsored by <a href="https://global.rakuten.com/corp/" target="_blank">Rakuten, Inc</a>. and Supported by <a href="https://rit.rakuten.co.jp/" target="_blank">Rakuten Institute of Technology</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <script src="https://code.jquery.com/jquery-latest.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/theme.js"></script>
+  </body>
+</html>

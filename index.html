@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeoProject</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
+    <link rel="stylesheet" href="css/compiled/theme.css" type="text/css"  />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
+          type="text/css" />
+    <link rel="stylesheet" href="css/compiled/index.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"    type="text/css" media="screen, projection" />
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5301881-3', 'leo-project.net');
+      ga('send', 'pageview');
+    </script>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <meta name="keywords" content="Cloud Staorage, S3 Compatible Storage"/>
+
+  </head>
+  <body class="pull_top">
+    <!-- MENU -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><strong>LeoProject</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="index.html">HOME</a></li>
+            <li><a href="leofs/index.html">LeoFS</a></li>
+            <li><a href="leofs/blog.html">BLOG</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section id="feature_slider" class="lol">
+      <!--
+          Each slide is composed by <img> and .info
+          - .info's position is customized with css in index.css
+          - each <img> parallax effect is declared by the following params inside its class:
+
+          example: class="asset left-472 sp600 t120 z3"
+          left-472 means left: -472px from the center
+          sp600 is speed transition
+          t120 is top to 120px
+          z3 is z-index to 3
+          Note: Maintain this order of params
+
+          For the backgrounds, you can combine from the bgs folder :D
+        -->
+      <!-- === SLIDE-1 === -->
+      <article class="slide" id="showcasing_1"
+               style="background: url('img/backgrounds/blue-gradient-abstract.jpg') repeat-x top center;">
+        <img class="asset left-40 sp450 t90 z1" src="img/slides/scene1/leofs_concept_1.png" />
+        <div class="info">
+          <h3><strong>LeoFS</strong> is an Unstructured Object Storage for the Web and a highly available, distributed, eventually consistent storage system.</h3>
+        </div>
+      </article>
+      <!-- === SLIDE-2 === 
+      <article class="slide" id="ideas" style="background: url('img/backgrounds/aqua.jpg') repeat-x top center;">
+        <div class="info">
+          <h2>Massive Cloud Storage: LeoFS</h2>
+        </div>
+        <img class="asset left-650 sp450 t188 z1" src="img/slides/scene2/left_1.png" />
+        <img class="asset left-218 sp450 t178 z2" src="img/slides/scene2/middle_1.png" />
+        <img class="asset left214 sp450 t188 z1" src="img/slides/scene2/right_1.png" />
+      </article>
+      -->
+      <!-- === SLIDE-2 === -->
+      <article class="slide" id="showcasing_2"
+               style="background: url('img/backgrounds/indigo.jpg') repeat-x top center;">
+        <img height="80%" class="asset left20 sp450 t92 z1" src="img/products/leofs.png" />
+        <div class="info">
+          <h3>What we're really focused on is</h3><h3>High Availability,</h3><h3>High Scalability</h3><h3>and High Cost Performance Ratio</h3>
+        </div>
+      </article>
+    </section>
+
+    <div id="features">
+      <div class="container">
+        <div class="section_header">
+          <h3>Our Products</h3>
+        </div>
+        <div class="row feature">
+          <div class="col-sm-6" onclick="location.href='https://leo-project.net/leofs/'">
+            <img src="img/leofs-overview-1.2-1.png" class="img-responsive" />
+            <p>&nbsp;</p>
+            <img src="img/leofs-overview-1.2-2.png" class="img-responsive" />
+          </div>
+          <div class="col-sm-6 info">
+            <h3><a href="https://leo-project.net/leofs/">LeoFS</a></h3>
+            <div>
+              <ul>
+                <li><a href="https://leo-project.net/leofs/">LeoFS</a> provides High Cost Performance Ratio.</li>
+                <li>It allows you to build <a href="https://leo-project.net/leofs/">LeoFS</a> clusters using commodity hardware on top of the Linux operating system.</li>
+                <li><a href="https://leo-project.net/leofs/">LeoFS</a> will provide very good performance even on commodity hardware.</li>
+                <li><a href="https://leo-project.net/leofs/">LeoFS</a> will require a smaller cluster than other storage to achieve the same performance.</li>
+                <li><a href="https://leo-project.net/leofs/">LeoFS</a> is also very easy to setup and to operate.</li>
+              </ul>
+              <ul>
+                <li>Features:
+                  <ul>
+                    <li>Multi Protocol - Rest, S3-API and NFS</li>
+                    <li>Small & Large Object Support</li>
+                    <li>Built-in the Cache Mechanism</li>
+                    <li>Multi Data Center Replication</li>
+                    <li>Autonomic operation w/Watchdog</li>
+                  </ul>
+                </li>
+              </ul>
+              <p style="padding-left:24px;">
+              <a href="https://leo-project.net/leofs/" target="_blank"
+                 ><img src="img/icons/flat/literature-32.png"/>&nbsp; LeoFS Website</a></p>
+              <p style="padding-left:24px;">
+              <a href="https://github.com/leo-project/leofs/" target="_blank"
+                 ><img src="img/icons/flat/github-10-32.png"/>&nbsp;LeoFS GitHub</a></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- starts footer -->
+    <footer id="footer">
+      <div class="container">
+
+        <div class="row credits">
+          <div class="col-md-12">
+            <div class="row social">
+              <div class="col-md-12">
+                <a href="https://www.facebook.com/org.leofs" target="_blank" class="facebook">
+                  <span class="socialicons ico1"></span>
+                  <span class="socialicons_h ico1h"></span>
+                </a>
+                <a href="https://twitter.com/LeoFastStorage" target="_blank" class="twitter">
+                  <span class="socialicons ico2"></span>
+                  <span class="socialicons_h ico2h"></span>
+                </a>
+                <a href="https://plus.google.com/u/0/communities/114746636425820194241" target="_blank" class="gplus">
+                  <span class="socialicons ico3"></span>
+                  <span class="socialicons_h ico3h"></span>
+                </a>
+              </div>
+            </div>
+            <div class="row copyright">
+              <div class="col-md-12">
+                © 2012-2017 <a href="#">Leo Project</a>. All rights reserved. / Sponsored by <a href="https://global.rakuten.com/corp/" target="_blank">Rakuten, Inc</a>. and Supported by <a href="https://rit.rakuten.co.jp/" target="_blank">Rakuten Institute of Technology</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/theme.js"></script>
+
+    <script type="text/javascript" src="js/index-slider.js"></script>
+  </body>
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeoFS/Blog - Quick Start LeoFS with Ruby-client</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
+    <link rel="stylesheet" href="css/compiled/theme.css" type="text/css" />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
+          type="text/css" />
+
+    <link rel="stylesheet" href="css/compiled/index.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/compiled/services.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/lib/flexslider.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/compiled/blogpost.css" type="text/css" media="screen" />
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5301881-3', 'leo-project.net');
+      ga('send', 'pageview');
+    </script>
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <!-- MENU -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><strong>LeoProject/LeoFS</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="download.html">Downloads</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="docs/index.html">LeoFS v1.3 documentation</a></li>
+                <li><a href="docs-old/index.html">LeoFS v1.3 documentation (old)</a></li>
+              </ul>
+            </li>
+            <li><a href="users.html">Users</a></li>
+            <li class="active"><a href="blog.html">BLOG</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="logos.html">Logos</a></li>
+              </ul>
+            </li>
+            <li><a href="coc.html">Code of Conduct</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="blog_post">
+      <div class="container">
+
+        <!-- Entries -->
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- Entry.start -->
+            <div class="post_content">
+              <h2>Quick Start LeoFS with Ruby-client</h2>
+              <span class="date">June 25, 2014</span>
+
+
+<h2>Introduction</h2>
+
+<p>This article will get you going with a how to develop and architect <code>Ruby</code> application for LeoFS. This article assumes that you have already installed LeoFS environment on your local or remote node. See <a href="https://leo-project.net/leofs/docs/getting_started/getting_started.html#getting-started" target="_blank">Getting Started with LeoFS</a> for more Information.</p>
+
+<h2>Installation and Setup S3 Ruby-client</h2>
+
+<p>The easiest way to install Ruby on your machine is through the yum package installer. Then we need some additional Ruby dependancies.</p>
+
+<h3>For CentOS, Fedora and RHEL</h3>
+
+<pre lang="shell"><code>##### Install Ruby, SDK and Dependencies #####
+$ sudo yum install ruby
+$ sudo yum install gcc g++ make automake autoconf curl-devel \
+  openssl-devel zlib-devel httpd-devel
+$ sudo yum install apr-devel apr-util-devel sqlite-devel
+$ sudo yum install ruby-rdoc ruby-devel
+</code></pre>
+
+<p>Once you have Ruby installed now you can easily install the ruby gems.</p>
+
+<pre lang="shell"><code>$ sudo yum install rubygems
+</code></pre>
+
+<h3>For Debian and Ubuntu</h3>
+
+<pre lang="shell"><code>##### Install Ruby, SDK and Dependencies #####
+$ sudo apt-get install curl libmagic-dev
+
+## To install rvm
+$ curl -L https://get.rvm.io | bash -s stable
+
+## To load RVM into your shell
+$ source ~/.rvm/scripts/rvm
+
+## To install dependancies
+$ rvm requirements
+
+$ rvm install ruby
+$ rvm use ruby --default
+</code></pre>
+
+<p>Once you have Ruby installed now you can easily install the ruby gems.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="err">$</span> <span class="n">rvm</span> <span class="n">rubygems</span> <span class="n">current</span>
+</pre></div>
+
+<p>To check your current default interpreter, run the following:</p>
+
+<pre lang="shell"><code>$ ruby -v
+</code></pre>
+
+<pre lang="shell"><code>###### Download Sample Project #####
+$ git clone https://github.com/leo-project/leofs_client_tests.git
+$ cd aws-sdk-ruby
+$ gem install aws-sdk
+$ gem install content_type
+</code></pre>
+
+<h3>About the sample</h3>
+
+<p>This sample application is designed to show you how to:</p>
+
+<ul class="task-list">
+<li>Declare a dependency on the aws-sdk using rubygemes.</li>
+<li>Read access keys from environment variables or define it statically in this sample we are using static entry.</li>
+<li>Instantiate an Amazon S3 client.</li>
+<li>Interact with Amazon S3 in various ways, such as creating a bucket and uploading a file.</li>
+</ul><p>The project's <code>README</code> file contains more information about this sample code. If you have trouble getting set up or have other feedback about this sample codes, let us know on <a href="https://github.com/leo-project/leofs_client_tests/tree/develop/aws-sdk-ruby" target="_blank">GitHub</a>. </p>
+
+<h2>API feature list</h2>
+
+<p>The storage API is compatible with the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html" target="_blank">Amazon S3 REST API</a> which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.</p>
+
+<h3>Bucket-level operation</h3>
+
+<ul class="task-list">
+<li>GET Bucket - Returns a list of the objects within a bucket</li>
+<li>GET Bucket ACL - Returns the ACL associated with a bucket</li>
+<li>PUT Bucket - Creates a new bucket</li>
+<li>PUT Bucket ACL - Sets the ACL permissions for a bucket</li>
+<li>HEAD Object – Retrieves Bucket metadata</li>
+<li>DELETE Bucket - Deletes a bucket</li>
+</ul><h3>Object-level operation</h3>
+
+<ul class="task-list">
+<li>GET Object- Retrieves an object</li>
+<li>LIST Object- Retrieves an object list</li>
+<li>PUT Object - Stores an object to a bucket</li>
+<li>PUT Object (Copy) - Creates a copy of an object</li>
+<li>HEAD Object - Retrieves object metadata (not the full content of the object)</li>
+<li>DELETE Object - Deletes an object</li>
+</ul><h3>Multipart upload</h3>
+
+<ul class="task-list">
+<li>Initiate Multipart Upload - Initiates a multipart upload and returns an upload ID</li>
+<li>Upload Part - Uploads a part in a multipart upload</li>
+<li>Complete Multipart Upload - Completes a multipart upload and assembles previously uploaded parts</li>
+<li>Abort Multipart Upload - Aborts a multipart upload and eventually frees storage consumed by previously uploaded parts.</li>
+<li>List Parts - Lists the parts that have been uploaded for a specific multipart upload.</li>
+<li>List Multipart Uploads - Lists multipart uploads that have not yet been completed or aborted.</li>
+</ul><p>The <em>multipart-upload</em> allows you to upload a single object as a set of parts. Object parts can be uploaded independently and in any order. After all parts are uploaded, LeoFS assembles an object out of the parts. When your object size reaches 100MB, you should consider using multipart uploads instead of uploading the object in a single operation. Read more about parallel multipart uploads <a href="https://aws.typepad.com/aws/2010/11/amazon-s3-multipart-upload.html" target="_blank">here</a>.
+<center><img src="https://media.amazonwebservices.com/blog/s3_multipart_upload.png" alt="Multipart Upload" style="max-width:100%;"></center></p>
+
+<h2>Sample methods:</h2>
+
+<p>The complete API reference is available on the <a href="https://rubydoc.info/gems/aws/2.4.5/Aws/S3Interface" target="_blank">Aws::S3Interface</a>. Here we included our sample <a href="https://github.com/leo-project/leofs_client_tests/blob/develop/aws-sdk-ruby/leo.rb" target="_blank">script file</a> which includes major method which is supported by LeoFS.</p>
+
+<h3>Creating a connection</h3>
+
+<p>A simple way to specify your credentials is by injecting them directly into the factory method when instantiating the client object. However, be careful to not hard-code your credentials inside of your applications. Hard-coding your credentials can be dangerous. According to your bucket Name please set sub-domain name entry as per <a href="https://leo-project.net/leofs/docs/s3_client.html#edit-etc-hosts" target="_blank">this page</a>. For more detail method you can refer <a href="https://www.rubydoc.info/github/aws/aws-sdk-ruby/AWS#config-class_method" target="_blank"><i>aws-sdk-ruby/AWS#config-class_method</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## This code supports "aws-sdk v1.9.5"</span>
+<span class="nb">require</span> <span class="s2">"aws-sdk"</span>
+<span class="nb">require</span> <span class="s2">"content_type"</span>
+</pre></div>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Global variable setting</span>
+
+<span class="c1">## AccessKeyID ==&gt; replace your AccessKey ID, </span>
+<span class="c1">## SecretAccessKey ==&gt; replace your Secret AccessKey, base_</span>
+<span class="c1">## Endpoint ==&gt; your LeoFS service address, </span>
+<span class="c1">## here given credential is LeoFS’s default user’s credential</span>
+
+<span class="no">Endpoint</span> <span class="o">=</span> <span class="s2">"localhost"</span>
+<span class="no">Port</span> <span class="o">=</span> <span class="mi">8080</span>
+<span class="no">AccessKeyId</span> <span class="o">=</span> <span class="s2">"05236"</span>
+<span class="no">SecretAccessKey</span> <span class="o">=</span> <span class="s2">"802562235"</span>
+<span class="no">FileName</span> <span class="o">=</span> <span class="s2">"testFile"</span>
+<span class="no">ChunkSize</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1">## 5 MB chunk size</span>
+<span class="no">Bucket</span> <span class="o">=</span> <span class="s2">"test"</span> <span class="o">+</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">99999</span><span class="p">)</span><span class="o">.</span><span class="n">to_s</span>
+</pre></div>
+
+<div class="highlight highlight-ruby"><pre><span class="c1"
+># You can use dynamic configuration via specifying</span>
+<span class="c1"># your environment into your shell</span>
+<span class="c1"># Instantiate a new client for Amazon Simple Storage Service (S3).</span>
+<span class="c1"># With no parameters or configuration, </span>
+<span class="c1"># the AWS SDK for Ruby will look for access keys</span>
+<span class="c1"># and region in these environment variables:</span>
+<span class="c1">#</span>
+<span class="c1">#    AWS_ACCESS_KEY_ID='...'</span>
+<span class="c1">#    AWS_SECRET_ACCESS_KEY='...'</span>
+<span class="c1">#</span>
+<span class="c1"># LeoFS Http Handler creation</span>
+<span class="k">class</span> <span class="nc">LeoFSHandler</span> <span class="o">&lt;</span> <span class="no">AWS</span><span class="o">::</span><span class="no">Core</span><span class="o">::</span><span class="no">Http</span><span class="o">::</span><span class="no">NetHttpHandler</span>
+  <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="o">::</span><span class="no">Port</span>
+    <span class="k">super</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="k"></span>
+<span class="c1">## Credential and configuration's manual specification you can skip this step if you are using environmental variable</span>
+<span class="no">SP</span> <span class="o">=</span> <span class="no">AWS</span><span class="o">::</span><span class="no">Core</span><span class="o">::</span><span class="no">CredentialProviders</span><span class="o">::</span><span class="no">StaticProvider</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+<span class="p">{</span>
+  <span class="ss">:access_key_id</span>     <span class="o">=&gt;</span> <span class="no">AccessKeyId</span><span class="p">,</span>
+  <span class="ss">:secret_access_key</span> <span class="o">=&gt;</span> <span class="no">SecretAccessKey</span>
+<span class="p">})</span>
+
+<span class="no">AWS</span><span class="o">.</span><span class="n">config</span><span class="p">(</span>
+  <span class="ss">access_key_id</span><span class="p">:</span> <span class="no">AccessKeyId</span><span class="p">,</span>
+  <span class="ss">secret_access_key</span><span class="p">:</span> <span class="no">SecretAccessKey</span><span class="p">,</span>
+  <span class="ss">s3_endpoint</span><span class="p">:</span> <span class="no">Endpoint</span><span class="p">,</span>
+  <span class="ss">http_handler</span><span class="p">:</span> <span class="no">LeoFSHandler</span><span class="o">.</span><span class="n">new</span><span class="p">,</span>
+  <span class="ss">credential_provider</span><span class="p">:</span> <span class="no">SP</span><span class="p">,</span>
+  <span class="ss">s3_force_path_style</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span>
+  <span class="ss">use_ssl</span><span class="p">:</span> <span class="kp">false</span>
+<span class="p">)</span>
+
+<span class="n">s3</span> <span class="o">=</span> <span class="no">AWS</span><span class="o">::</span><span class="no">S3</span><span class="o">.</span><span class="n">new</span>
+</pre></div>
+
+<h2>Creating a bucket</h2>
+
+<p>A simple way to create bucket is given from here be careful bucket name should be globally unique and must be DNS compatible otherwise it will throw <code>S3Exception</code>. For more information about bucket name restrictions, see <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html" target="_blank"><i>Bucket Restrictions and Limitations</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Create bucket</span>
+<span class="n">s3</span><span class="o">.</span><span class="n">buckets</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="no">Bucket</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"Bucket Created Successfully</span><span class="se">\n</span><span class="s2">"</span>
+</pre></div>
+
+<h3>Does bucket exists ?</h3>
+
+<p>A simple to <i>check a bucket</i> is exist or not and you have permission to access it. The operation returns a <code>200 - OK</code> if the bucket exists and you have permission to access it. Otherwise, the operation might return responses such as <code>404 - Not Found</code> and <code>403 - Forbidden</code>. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/Bucket.html#exists%3F-instance_method" target="_blank"><i>AWS::S3::Bucket</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="k">if</span> <span class="o">!</span><span class="p">(</span><span class="n">s3</span><span class="o">.</span><span class="n">bucket</span><span class="o">.</span><span class="n">exists?</span><span class="p">)</span>
+  <span class="k">raise</span> <span class="s2">"Bucket doesn't exists"</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Get buckets</h3>
+
+<p>You can get array of  all the buckets owned by your account using the <code>buckets['bucket-name']</code> method. You can also enumerate all buckets in your account. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/BucketCollection.html#each-instance_method" target="_blank">AWS::S3::BucketCollection</a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Get bucket</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">buckets</span><span class="o">[</span><span class="no">Bucket</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="s2">"Get Bucket Successfully</span><span class="se">\n\n</span><span class="s2">"</span>
+<span class="n">s3</span><span class="o">.</span><span class="n">buckets</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">bucket</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">bucket</span><span class="o">.</span><span class="n">name</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Single-part object upload</h3>
+
+<p>A simple way to <i>upload object</i> via the single-part method from your file system which is recommended to use for object less than 100MB in size. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/S3Object.html#write-instance_method" target="_blank">this  page</a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## PUT Single-Part upload Object</span>
+<span class="n">file_path</span> <span class="o">=</span> <span class="s2">"../temp_data/"</span> <span class="o">+</span> <span class="no">FileName</span>
+<span class="n">fileObject</span> <span class="o">=</span>  <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="c1">## PUT object using single-part method</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".single"</span><span class="o">].</span><span class="n">write</span><span class="p">(</span><span class="ss">file</span><span class="p">:</span> <span class="n">file_path</span><span class="p">,</span>           <span class="ss">content_type</span><span class="p">:</span> <span class="n">fileObject</span><span class="o">.</span><span class="n">content_type</span><span class="p">)</span>
+</pre></div>
+
+<h3>Multi-part object upload</h3>
+
+<p>The <em>multipart-upload</em> allows you to upload a single object as a set of parts. Each part is a contiguous portion of the object's data. You can upload these object parts independently and in any order. If transmission of any part fails, you can retransmit that part without affecting other parts. After all parts of your object are uploaded, LeoFS assembles these parts and creates the object. In general, when your object size reaches 100 MB, you should consider using multipart uploads instead of uploading the object in a single operation. Advantages: Improved throughput, Quick recovery from any network issues, Suspend and resume object uploads begin an upload before you know the final object size. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/MultipartUpload.html" target="_blank"><i>AWS::S3::MultipartUpload</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## PUT object using multi-part method</span>
+<span class="nb">puts</span> <span class="s2">"File is being upload:</span><span class="se">\n</span><span class="s2">"</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="n">fileObject</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="no">ChunkSize</span>
+<span class="n">uploading_object</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">File</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fileObject</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">]</span>
+<span class="n">uploading_object</span><span class="o">.</span><span class="n">multipart_upload</span><span class="p">(</span><span class="ss">:content_type</span> <span class="o">=&gt;</span> <span class="n">fileObject</span><span class="o">.</span><span class="n">content_type</span><span class="o">.</span><span class="n">to_s</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">upload</span><span class="o">|</span>
+  <span class="k">while</span> <span class="o">!</span><span class="n">fileObject</span><span class="o">.</span><span class="n">eof?</span>
+    <span class="nb">puts</span> <span class="s2">" </span><span class="si">#{</span><span class="n">upload</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> </span><span class="se">\t\t</span><span class="s2"> </span><span class="si">#{</span><span class="n">counter</span><span class="si">}</span><span class="s2"> "</span>
+    <span class="n">counter</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="c1">## 20MB Default size is 5MB(5242880Byte)</span>
+    <span class="n">upload</span><span class="o">.</span><span class="n">add_part</span><span class="p">(</span><span class="n">fileObject</span><span class="o">.</span><span class="n">read</span> <span class="no">ChunkSize</span><span class="p">)</span>
+    <span class="nb">p</span><span class="p">(</span><span class="s2">"Aborted"</span><span class="p">)</span> <span class="k">if</span> <span class="n">upload</span><span class="o">.</span><span class="n">aborted?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="s2">"File Uploaded Successfully</span><span class="se">\n\n</span><span class="s2">"</span>
+</pre></div>
+
+<h3>List a bucket’s content</h3>
+
+<p>Here we request an object iterator and loop over it to retrieve the desired information about the objects (object key, size, and modification time stamp in this case) . For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/ObjectCollection.html" target="_blank"><i>AWS::S3::ObjectCollection</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## List objects in the bucket</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">with_prefix</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">obj</span><span class="o">|</span>
+  <span class="k">if</span> <span class="o">!</span><span class="n">fileObject</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">eql?</span> <span class="n">obj</span><span class="o">.</span><span class="n">content_length</span>
+    <span class="k">raise</span> <span class="s2">" Content length is changed for : </span><span class="si">#{</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2"> </span><span class="si">#{</span><span class="n">obj</span><span class="o">.</span><span class="n">content_length</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Head an object</h3>
+
+<p>Files in Amazon-S3 and LeoFS are called <code>objects</code> and are stored in buckets. A specific object is referred to by its key (i.e., name) and holds data. Here, we create a new object with the key name, <code>HEAD</code> request is metadata of that object. </p>
+
+<p>e.g. ContentLength, ETag, ContentType etc.. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/S3Object.html#head-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## HEAD object</span>
+<span class="n">fileObject</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">fileDigest</span> <span class="o">=</span> <span class="no">Digest</span><span class="o">::</span><span class="no">MD5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="n">fileObject</span><span class="o">.</span><span class="n">read</span><span class="p">)</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".single"</span><span class="o">].</span><span class="n">head</span>
+<span class="k"></span>
+<span class="c1">## for future use  &amp;&amp; (fileObject.content_type.eql? metadata.content_type))</span>
+<span class="k">if</span> <span class="o">!</span><span class="p">((</span><span class="n">fileObject</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">eql?</span> <span class="n">metadata</span><span class="o">.</span><span class="n">content_length</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">fileDigest</span><span class="o">.</span><span class="n">eql?</span> <span class="n">metadata</span><span class="o">.</span><span class="n">etag</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span>     <span class="s1">''</span><span class="p">)))</span>
+  <span class="k">raise</span> <span class="s2">"Single Part File Metadata could not match"</span>
+<span class="k">else</span>
+  <span class="nb">puts</span> <span class="s2">"Single Part File MetaData :"</span>
+  <span class="nb">p</span> <span class="n">metadata</span>
+<span class="k">end</span>
+<span class="k"></span>
+<span class="c1">## for future use &amp;&amp; (fileObject.content_type.eql? metadata.content_type)</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span><span class="o">].</span><span class="n">head</span>
+<span class="k">if</span> <span class="o">!</span><span class="p">(</span><span class="n">fileObject</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">eql?</span> <span class="n">metadata</span><span class="o">.</span><span class="n">content_length</span><span class="p">)</span>
+  <span class="k">raise</span> <span class="s2">"Multipart File Metadata could not match"</span>
+<span class="k">else</span>
+  <span class="nb">puts</span> <span class="s2">"Multipart Part File MetaData :"</span>
+  <span class="nb">p</span> <span class="n">metadata</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>GET an object</h3>
+
+<p>A simple way to <i>retrieve object</i> from LeoFS in to current directory by using read method. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/S3Object.html#read-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Download File LeoFS to local disk</span>
+<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".copy"</span><span class="p">,</span> <span class="s2">"w+"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">thisfileObject</span><span class="o">|</span>
+  <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span><span class="o">].</span><span class="n">read</span> <span class="k">do</span> <span class="o">|</span><span class="n">chunk</span><span class="o">|</span>
+    <span class="n">thisfileObject</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="n">thisfileObject</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+  <span class="n">thisfileDigest</span> <span class="o">=</span> <span class="no">Digest</span><span class="o">::</span><span class="no">MD5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(</span><span class="n">thisfileObject</span><span class="o">.</span><span class="n">read</span><span class="p">)</span>
+  <span class="k">if</span> <span class="o">!</span><span class="p">((</span><span class="n">thisfileObject</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">eql?</span> <span class="n">metadata</span><span class="o">.</span><span class="n">content_length</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">fileDigest</span><span class="o">.</span><span class="n">eql?</span> <span class="n">thisfileDigest</span><span class="p">))</span>
+    <span class="k">raise</span> <span class="s2">"Downloaded File Metadata could not match"</span>
+  <span class="k">else</span>
+    <span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">File Downloaded Successfully</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Copy an object</h3>
+
+<p>A simple way to <i>copy object</i> on LeoFS same bucket or different bucket We should use this method than by using the <code>exists</code> method. we are checking presence of copied object. Ruby SDK have two methods <code>copy_from</code> and <code>copy_to</code>. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/S3Object.html#copy_from-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Copy object</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".copy"</span><span class="o">].</span><span class="n">copy_from</span><span class="p">(</span><span class="no">FileName</span><span class="p">)</span>
+<span class="k">if</span> <span class="o">!</span><span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".copy"</span><span class="o">].</span><span class="n">exists?</span>
+  <span class="k">raise</span> <span class="s2">"File could not Copy Successfully</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="s2">"File copied successfully</span><span class="se">\n</span><span class="s2">"</span>
+</pre></div>
+
+<h3>Move/Rename an object</h3>
+
+<p>A simple way to <i>move/rename object</i> on LeoFS same bucket or different bucket, we are checking presence of moved or renamed object. Ruby SDK have two methods <code>move_to</code> and <code>rename_to</code>. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/S3Object.html#move_to-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Move object</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".copy"</span><span class="o">].</span><span class="n">move_to</span><span class="p">(</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".org"</span><span class="p">)</span>
+<span class="k">if</span> <span class="o">!</span><span class="n">obj</span><span class="o">.</span><span class="n">exists?</span>
+  <span class="k">raise</span> <span class="s2">"File could not Moved Successfully</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">File move Successfully</span><span class="se">\n</span><span class="s2">"</span>
+<span class="c1"></span>
+<span class="c1">## Rename object</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">[</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".org"</span><span class="o">].</span><span class="n">rename_to</span><span class="p">(</span><span class="no">FileName</span> <span class="o">+</span> <span class="s2">".copy"</span><span class="p">)</span>
+<span class="k">if</span> <span class="o">!</span><span class="n">obj</span><span class="o">.</span><span class="n">exists?</span>
+  <span class="k">raise</span> <span class="s2">"File could not Rename Successfully</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+<span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">File rename Successfully</span><span class="se">\n</span><span class="s2">"</span>
+</pre></div>
+
+<h3>Delete an object</h3>
+
+<p>A simple way to <i>delete object</i> from LeoFS by providing bucket and object name - key. Multiple object delete method currently not supported but you can perfrom similar operation via using iterator. For more detail information you can refer <a href="https://docs.aws.amazon.com/AWSRubySDK/latest/AWS/S3/S3Object.html#delete-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Delete objects one by one and check if exist</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">with_prefix</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">obj</span><span class="o">|</span>
+  <span class="n">obj</span><span class="o">.</span><span class="n">delete</span>
+  <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">exists?</span>
+    <span class="k">raise</span> <span class="s2">"Object is not Deleted Successfully</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+  <span class="c1"># to be not found</span>
+  <span class="k">begin</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">read</span>
+  <span class="k">rescue</span> <span class="no">AWS</span><span class="o">::</span><span class="no">S3</span><span class="o">::</span><span class="no">Errors</span><span class="o">::</span><span class="no">NoSuchKey</span>
+    <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">obj</span><span class="o">.</span><span class="n">key</span><span class="si">}</span><span class="s2"> </span><span class="se">\t</span><span class="s2"> File Deleted Successfully..</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="k">next</span>
+  <span class="k">end</span>
+  <span class="k">raise</span> <span class="s2">"Object is not Deleted Successfully</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Get a bucket ACL</h3>
+
+<p>A simple way to <i>get bucket ACL</i> is given here. LeoFS basically supports <code>private</code>, <code>public-read</code> and <code>public-read-write</code> types of the ACL. Object level ACL is currently not supported yet. In ruby SDK it displays like <code>read</code>,<code>read_acp</code>, <code>write</code> and <code>full_control</code>. here we are using permisions as collection of permissions as a array. For more detail information you can refer <a href="https://www.rubydoc.info/github/aws/aws-sdk-ruby/AWS/S3/S3Object#acl-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">puts</span> <span class="s2">"Owner ID : </span><span class="si">#{</span><span class="n">bucket</span><span class="o">.</span><span class="n">acl</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">"</span>
+<span class="nb">puts</span> <span class="s2">"Owner Display name : </span><span class="si">#{</span><span class="n">bucket</span><span class="o">.</span><span class="n">acl</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">display_name</span><span class="si">}</span><span class="s2">"</span>
+<span class="n">permissions</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">acl</span><span class="o">.</span><span class="n">grants</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">grant</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"Bucket ACL is : </span><span class="si">#{</span><span class="n">grant</span><span class="o">.</span><span class="n">permission</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="nb">puts</span> <span class="s2">"Bucket Grantee URI is : </span><span class="si">#{</span><span class="n">grant</span><span class="o">.</span><span class="n">grantee</span><span class="o">.</span><span class="n">uri</span><span class="si">}</span><span class="s2">"</span>
+  <span class="n">permissions</span> <span class="o">&lt;&lt;</span> <span class="n">grant</span><span class="o">.</span><span class="n">permission</span><span class="o">.</span><span class="n">name</span>
+<span class="k">end</span>
+</pre></div>
+
+<h3>Put a bucket ACL</h3>
+
+<p>A simple way to <i>put ACL</i> and restrict different Bucket Acess by this method. For more detail information you can refer <a href="https://www.rubydoc.info/github/aws/aws-sdk-ruby/AWS/S3/S3Object#acl-instance_method" target="_blank"><i>AWS::S3::S3Object</i></a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">bucket</span><span class="o">.</span><span class="n">acl</span> <span class="o">=</span> <span class="ss">:private</span>
+<span class="c1"># OR</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">acl</span> <span class="o">=</span> <span class="ss">:public_read</span>
+<span class="c1"># OR</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">acl</span> <span class="o">=</span> <span class="ss">:public_read_write</span>
+<span class="c1"># OR</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">acl</span> <span class="o">=</span> <span class="ss">:private</span>
+</pre></div>
+
+<h3>Delete a bucket</h3>
+
+<p>A simple way to <i>delete bucket</i> using <code>clear</code> and <code>delete</code> methods. For more detail information you can refer <a href="https://rubydoc.info/gems/aws/2.4.5/Aws/S3Interface#delete_bucket-instance_method" target="_blank">this page</a>.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">## Bucket Delete</span>
+<span class="n">bucket</span> <span class="o">=</span> <span class="n">s3</span><span class="o">.</span><span class="n">buckets</span><span class="o">[</span><span class="no">Bucket</span><span class="o">]</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">clear!</span>  <span class="c1">#clear the versions only</span>
+<span class="n">bucket</span><span class="o">.</span><span class="n">delete</span>
+<span class="nb">puts</span> <span class="s2">"Bucket deleted Successfully</span><span class="se">\n</span><span class="s2">"</span>
+</pre></div>
+
+<h2>Test script code:</h2>
+
+<p>This testing file include all well know methods of Ruby SDK. This script required sample file name as “testFile” at following location in <code>$file_path = "../temp_data/$file_name";</code> your project Directory. Sample Operation testing Script which is located in downloaded project’s leo.rb  file or you can access <a href="https://gist.github.com/PatelParas/aa46d8d6c64e181446ec#file-leofs_ruby_client_testing_script-rb" target="_blank">here</a>.</p>
+
+<h2>Test script output :</h2>
+
+<p>You can check sample output of this script via <a href="https://gist.github.com/PatelParas/aa46d8d6c64e181446ec#file-leofs_ruby_client_testing_script_result" target="_blank">LeoFS_Ruby_Client_Testing_Script_Result - Gist</a>.</p></article>
+
+              <div class="author_box">
+                <div class="author"><a href="https://in.linkedin.com/pub/paras-patel/45/451/a27" target="_blank">Paras Patel</a></div>
+                <div class="area">Software Development Engineer at Rakuten</div>
+              </div>
+
+            <!-- DISQUS -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+              var disqus_shortname = 'leo-project'; // required: replace example with your forum shortname
+              (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!-- DISQUS.end -->
+
+            </div>
+            <!-- Entry.end -->
+          </div>
+
+          <!-- SideBar -->
+          <div class="col-sm-4">
+            <div class="sidebar">
+              <div class="box">
+                <div class="sidebar_header">
+                  <h4>Menu</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-architecture.html">Architecture</a></li>
+                    <li><a href="blog-benchmark.html">Benchmark</a></li>
+                    <li><a href="blog-leofs-client.html">LeoFS Clients</a></li>
+                  </ul>
+                </ul>
+              </div>
+
+              <!-- Recent Posts  -->
+              <div class="box box2">
+                <div class="sidebar_header">
+                  <h4>Recent Posts</h4>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-7.html">Quick Start LeoFS with Java-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-6.html">Quick Start LeoFS with Ruby-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-5.html">Erlang User Conference 2014 in Stockholm</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-4.html">Quick Start LeoFS with PHP-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-3.html">Multi Data Center Replication</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-2.html">Benchmark Results of LeoFS v0.14.0</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-1.html">LeoFS Overview</a>
+                </div>
+              </div>
+
+              <!-- Tweets -->
+              <div class="box box3">
+                <a class="twitter-timeline" href="https://twitter.com/LeoFastStorage" data-widget-id="324312371701096448">Tweets by @LeoFastStorage</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^https:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </div>
+
+              <!-- Archives
+              <div class="box last">
+                <div class="sidebar_header">
+                  <h4>Archives</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-201404.html">Apr 2014</a></li>
+                    <li><a href="blog-201304.html">Apr 2013</a></li>
+                  </ul>
+                </ul>
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- starts footer -->
+      <footer id="footer">
+        <div class="container">
+          <div class="row credits">
+            <div class="col-md-12">
+              <div class="row social">
+                <div class="col-md-12">
+                  <a href="https://www.facebook.com/org.leofs" target="_blank" class="facebook">
+                    <span class="socialicons ico1"></span>
+                    <span class="socialicons_h ico1h"></span>
+                  </a>
+                  <a href="https://twitter.com/LeoFastStorage" target="_blank" class="twitter">
+                    <span class="socialicons ico2"></span>
+                    <span class="socialicons_h ico2h"></span>
+                  </a>
+                  <a href="https://plus.google.com/u/0/communities/114746636425820194241" target="_blank" class="gplus">
+                    <span class="socialicons ico3"></span>
+                    <span class="socialicons_h ico3h"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="row copyright">
+                <div class="col-md-12">
+                  © 2012-2017 <a href="../index.html">Leo Project</a>. All rights reserved. / Sponsored by <a href="https://global.rakuten.com/corp/" target="_blank">Rakuten, Inc</a>. and Supported by <a href="https://rit.rakuten.co.jp/" target="_blank">Rakuten Institute of Technology</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <script src="https://code.jquery.com/jquery-latest.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/theme.js"></script>
+  </body>
+</html>

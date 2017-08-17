@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LeoFS/Blog - Quick Start LeoFS with PHP-client</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="css/compiled/bootstrap-overrides.css" type="text/css" />
+    <link rel="stylesheet" href="css/compiled/theme.css" type="text/css" />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic"
+          type="text/css" />
+
+    <link rel="stylesheet" href="css/compiled/index.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/compiled/services.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/lib/animate.css"       type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/lib/flexslider.css"    type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/compiled/blogpost.css" type="text/css" media="screen" />
+
+    <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-5301881-3', 'leo-project.net');
+      ga('send', 'pageview');
+    </script>
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <!-- MENU -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="index.html" class="navbar-brand"><strong>LeoProject/LeoFS</strong></a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="download.html">Downloads</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Docs <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="docs/index.html">LeoFS v1.3 documentation</a></li>
+                <li><a href="docs-old/index.html">LeoFS v1.3 documentation (old)</a></li>
+              </ul>
+            </li>
+            <li><a href="users.html">Users</a></li>
+            <li class="active"><a href="blog.html">BLOG</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assets <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="logos.html">Logos</a></li>
+              </ul>
+            </li>
+            <li><a href="coc.html">Code of Conduct</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="blog_post">
+      <div class="container">
+
+        <!-- Entries -->
+        <div class="row">
+          <div class="col-sm-8">
+            <!-- Entry.start -->
+            <div class="post_content">
+              <h2>Quick Start LeoFS with PHP-client</h2>
+              <span class="date">May 22, 2014</span>
+              <!-- BODY -->
+              <div id="readme" class="blob instapaper_body">
+                  <h2>
+                    <a name="user-content-introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
+
+                  <p>This article will get you going with a <code>PHP-client</code> application how to develop and architect applications for LeoFS. This article assumes that you have already installed LeoFS environment on your local or remote node. See <a href="https://leo-project.net/leofs/docs/getting_started/getting_started.html#getting-started">Getting Started with LeoFS</a> for more Information.</p>
+
+                  <h2>
+                    <a name="user-content-installation--setup-php-client" class="anchor" href="#installation--setup-php-client"><span class="octicon octicon-link"></span></a>Installation &amp; Setup PHP-client</h2>
+
+                  <h3>
+                    <a name="user-content-centos-fedora--rhel" class="anchor" href="#centos-fedora--rhel"><span class="octicon octicon-link"></span></a>CentOS, Fedora &amp; RHEL:</h3>
+
+                  <pre lang="shell"
+><code>##### Install PHP, SDK and Dependencies #####
+$ sudo yum install php
+$ php –v</code></pre>
+
+                  <h3>
+                    <a name="user-content-debian--ubuntu-based-installation" class="anchor" href="#debian--ubuntu-based-installation"><span class="octicon octicon-link"></span></a>Debian &amp; Ubuntu based Installation</h3>
+
+                  <pre lang="shell"
+><code>##### Install PHP, SDK and Dependencies #####
+$ sudo apt-get install php5 php5-json php5-curl
+$ php –v</code></pre>
+
+                  <pre lang="shell"
+><code
+>###### Download Sample Project #####
+$ git clone https://github.com/leo-project/leofs_client_tests.git
+$ cd aws-sdk-php
+$ curl -sS https://getcomposer.org/installer | php
+$ sudo php composer.phar install</code></pre>
+
+                  <h3>
+                    <a name="user-content-about-the-sample" class="anchor" href="#about-the-sample"><span class="octicon octicon-link"></span></a>About the Sample</h3>
+
+                  <p>This sample application is designed to show you how to:</p>
+
+                  <ul class="task-list">
+                    <li>Declare a dependency on the AWS SDK for PHP using Composer.</li>
+                    <li>Read access keys from environment variables or define it statically in this sample we are using static entry.</li>
+                    <li>Instantiate an Amazon Simple Storage Service (Amazon S3) client.</li>
+                    <li>Interact with Amazon S3 in various ways, such as creating a bucket and uploading a file.</li>
+                  </ul><p>The project's <code>README</code> file contains more information about this sample code. If you have trouble getting set up or have other feedback about this sample codes, let us know on <a href="https://github.com/leo-project/leofs_client_tests/tree/develop/aws-sdk-php">GitHub</a>. </p>
+
+                  <h2>
+                    <a name="user-content-api-feature-list" class="anchor" href="#api-feature-list"><span class="octicon octicon-link"></span></a>API Feature List</h2>
+
+                  <p>The storage API is compatible with the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/APIRest.html">Amazon S3 REST API</a> which means that any of the operations listed can be executed using any of the commonly available S3 libraries or tools.</p>
+
+                  <h3>
+                    <a name="user-content-bucket-level-operation" class="anchor" href="#bucket-level-operation"><span class="octicon octicon-link"></span></a>Bucket-Level Operation</h3>
+
+                  <ul class="task-list">
+                    <li><strong>GET Bucket</strong> - Returns a list of the objects within a bucket</li>
+                    <li><strong>GET Bucket ACL</strong> - Returns the ACL associated with a bucket</li>
+                    <li><strong>PUT Bucket</strong> - Creates a new bucket</li>
+                    <li><strong>PUT Bucket ACL</strong> - Sets the ACL permissions for a bucket</li>
+                    <li><strong>HEAD Object</strong> – Retrieves Bucket metadata</li>
+                    <li><strong>DELETE Bucket</strong> - Deletes a bucket</li>
+                  </ul><h3>
+                    <a name="user-content-object-level-operation" class="anchor" href="#object-level-operation"><span class="octicon octicon-link"></span></a>Object-Level Operation</h3>
+
+                  <ul class="task-list">
+                    <li><strong>GET Object</strong> - Retrieves an object</li>
+                    <li><strong>LIST Object</strong> - Retrieves an object list</li>
+                    <li><strong>PUT Object</strong> - Stores an object to a bucket</li>
+                    <li><strong>PUT Object (Copy)</strong> - Creates a copy of an object</li>
+                    <li><strong>HEAD Object</strong> - Retrieves object metadata (not the full content of the object)</li>
+                    <li><strong>DELETE Object</strong> - Deletes an object</li>
+                  </ul><h3>
+                    <a name="user-content-multipart-upload" class="anchor" href="#multipart-upload"><span class="octicon octicon-link"></span></a>Multipart Upload</h3>
+
+                  <ul class="task-list">
+                    <li><strong>Initiate Multipart Upload</strong> - Initiates a multipart upload and returns an upload ID</li>
+                    <li><strong>Upload Part</strong> - Uploads a part in a multipart upload</li>
+                    <li><strong>Complete Multipart Upload</strong> - Completes a multipart upload and assembles previously uploaded parts</li>
+                    <li><strong>Abort Multipart Upload</strong> - Aborts a multipart upload and eventually frees storage consumed by previously uploaded parts.</li>
+                    <li><strong>List Parts</strong> - Lists the parts that have been uploaded for a specific multipart upload.</li>
+                    <li><strong>List Multipart Uploads</strong> - Lists multipart uploads that have not yet been completed or aborted.</li>
+                  </ul><p>Multipart upload allows you to upload a single object as a set of parts. Object parts can be uploaded independently and in any order. After all parts are uploaded, LeoFS assembles an object out of the parts. When your object size reaches 100MB, you should consider using multipart uploads instead of uploading the object in a single operation. Read more about parallel multipart uploads <a href="https://aws.typepad.com/aws/2010/11/amazon-s3-multipart-upload.html">here</a>.</p>
+
+                  <h2>
+                    <a name="user-content-sample-methods" class="anchor" href="#sample-methods"><span class="octicon octicon-link"></span></a>Sample Methods:</h2>
+
+                  <p>The complete API reference is available on the <a href="https://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.S3.S3Client.html">Amazon site</a>. Here we included our sample <a href="https://github.com/leo-project/leofs_client_tests/blob/develop/aws-sdk-php/index.php">script file</a> which includes major method which is supported by LeoFS.</p>
+
+                  <h3>
+                    <a name="user-content-creating-a-connection" class="anchor" href="#creating-a-connection"><span class="octicon octicon-link"></span></a>Creating a Connection</h3>
+
+                  <p>A simple way to specify your credentials is by injecting them directly into the factory method when instantiating the client object. However, be careful to not hard-code your credentials inside of your applications. Hard-coding your credentials can be dangerous. According to your bucket Name please subdomain name entry as per this <a href="https://leo-project.net/leofs/docs/s3_client.html#edit-etc-hosts">Page</a>. For more detail method you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/guide/latest/credentials.html#credential-profiles">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre
+><span class="c1">// Include the SDK using the Composer autoloader</span>
+<span class="k">require</span> <span class="s2">"vendor/autoload.php"</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Aws\Common\Enum\Region</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Aws\S3\S3Client</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Aws\S3\Model\MultipartUpload\UploadBuilder</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Aws\Common\Exception\MultipartUploadException</span><span class="p">;</span></pre></div>
+
+                  <div class="highlight highlight-php"><pre
+><span class="c1">// Global variable setting</span>
+<span class="cm">/* memory_set for big size chunk which will be used</span>
+<span class="cm">   by Multipart upload. Here we are using static and</span>
+<span class="cm">   common bucket name and file name </span>
+<span class="cm">   You can change according to your reqirement. */</span>
+<span class="cm"></span>
+<span class="nb">ini_set</span><span class="p">(</span><span class="s2">"memory_set"</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="nv">$bucket_name</span><span class="o">=</span><span class="s2">"test"</span><span class="p">;</span>
+<span class="nv">$file_name</span><span class="o">=</span><span class="s2">"testFile"</span><span class="p">;</span>
+<span class="cm"></span>
+<span class="cm">/* key ==&gt; replace your Access_ID,</span>
+<span class="cm">   secret ==&gt; replace your secret_key,
+<span class="cm">   base_url ==&gt; your LeoFS service address,</span>
+<span class="cm">   here given credential is LeoFS’s default user’s credential*/</span>
+<span class="cm"></span>
+<span class="nv">$client</span><span class="o">=</span> <span class="nx">S3Client</span><span class="o">::</span><span class="na">factory</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+<span class="s2">    "key"</span> <span class="o">=&gt;</span> <span class="s2">"05236"</span><span class="p">,</span>
+<span class="s2">    "secret"</span> <span class="o">=&gt;</span> <span class="s2">"802562235"</span><span class="p">,</span>
+<span class="s2">    "region"</span> <span class="o">=&gt;</span> <span class="nx">Region</span><span class="o">::</span><span class="na">US_EAST_1</span><span class="p">,</span>
+<span class="s2">    "scheme"</span> <span class="o">=&gt;</span> <span class="s2">"http"</span><span class="p">,</span>
+<span class="s2">    "base_url"</span> <span class="o">=&gt;</span> <span class="s2">"https://localhost:8080"</span>
+<span class="p">));</span></pre></div>
+
+                  <div class="highlight highlight-php"><pre
+><span class="c1">// OR you can use dynamic Configuration</span>
+<span class="c1">// create a service builder using a configuration file</span>
+<span class="c1">// which contains your credential</span>
+<span class="nv">$aws</span> <span class="o">=</span> <span class="nx">Aws</span><span class="o">::</span><span class="na">factory</span><span class="p">(</span><span class="s1">'/path/to/my_config.json'</span><span class="p">);</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-creating-a-bucket" class="anchor" href="#creating-a-bucket"><span class="octicon octicon-link"></span></a>Creating a Bucket</h3>
+
+                  <p>A simple way to create bucket is given from here be careful bucket name should be unique otherwise it will throw <code>S3Exception</code>. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_createBucket">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">createBucket</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">));</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-head-bucket" class="anchor" href="#head-bucket"><span class="octicon octicon-link"></span></a>Head Bucket</h3>
+
+                  <p>A Simple to check bucket is exist or not and you have permission to access it. The operation returns a <code>200 - OK</code> if the bucket exists and you have permission to access it. Otherwise, the operation might return responses such as <code>404 - Not Found</code> and <code>403 - Forbidden</code>. <code>doesObjectExist()</code>, <code>waitUntilBucketExists()</code>, and <code>waitUntilBucketNotExists()</code> methods are depends on this method. for more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_waitUntilBucketExists">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">createBucket</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">));</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-listing-a-bucket" class="anchor" href="#listing-a-bucket"><span class="octicon octicon-link"></span></a>Listing a Bucket</h3>
+
+                  <p>You can list all of the buckets owned by your account using the listBuckets method. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_listBuckets">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre
+><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">listBuckets</span><span class="p">();</span>
+<span class="c1"></span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$result</span><span class="p">[</span><span class="s2">"Buckets"</span><span class="p">]</span> <span class="k">as</span> <span class="nv">$bucket</span><span class="p">)</span> <span class="p">{</span>
+<span class="c1">    // Each Bucket value will contain a Name and CreationDate</span>
+<span class="k">    print</span> <span class="s2">"</span><span class="si">{</span><span class="nv">$bucket</span><span class="p">[</span><span class="s2">"Name"</span><span class="p">]</span><span class="si">}</span><span class="s2"> -</span><span class="se">\t</span><span class="s2"> </span><span class="si">{</span><span class="nv">$bucket</span><span class="p">[</span><span class="s2">"CreationDate"</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-single-part-object-upload" class="anchor" href="#single-part-object-upload"><span class="octicon octicon-link"></span></a>Single-Part Object upload</h3>
+
+                  <p>A simple way to upload object via the single-part method from your file system which is recommended to use for object less than 100MB in size. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_createBucket">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre
+><span class="c1">// PUT Single-Part upload Object</span>
+<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">putObject</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">,</span>
+<span class="s2">                          "Key"</span> <span class="o">=&gt;</span> <span class="nv">$file_name</span><span class="o">.</span><span class="s2">".single"</span><span class="p">,</span>
+<span class="s2">                          "Body"</span> <span class="o">=&gt;</span> <span class="nb">fopen</span><span class="p">(</span><span class="nv">$file_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)));</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">doesObjectExist</span><span class="p">(</span><span class="nv">$bucket_name</span><span class="p">,</span> <span class="nv">$file_name</span><span class="o">.</span><span class="s2">".single"</span><span class="p">))</span> <span class="p">{</span>
+<span class="k">    throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">"Single-part File could not Uploaded Successfully"</span><span class="p">);</span>
+<span class="p">}</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-multi-part-object-upload" class="anchor" href="#multi-part-object-upload"><span class="octicon octicon-link"></span></a>Multi-Part Object upload</h3>
+
+                  <p>Multipart upload allows you to upload a single object as a set of parts. Each part is a contiguous portion of the object's data. You can upload these object parts independently and in any order. If transmission of any part fails, you can retransmit that part without affecting other parts. After all parts of your object are uploaded, LeoFS assembles these parts and creates the object. In general, when your object size reaches 100 MB, you should consider using multipart uploads instead of uploading the object in a single operation. Advantages: Improved throughput, Quick recovery from any network issues, Suspend and resume object uploads begin an upload before you know the final object size. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_createMultipartUpload">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$uploader</span> <span class="o">=</span> <span class="nx">UploadBuilder</span><span class="o">::</span><span class="na">newInstance</span><span class="p">()</span>
+<span class="o">    -&gt;</span><span class="na">setClient</span><span class="p">(</span><span class="nv">$client</span><span class="p">)</span>
+<span class="o">    -&gt;</span><span class="na">setSource</span><span class="p">(</span><span class="nv">$file_path</span><span class="p">)</span>
+<span class="o">    -&gt;</span><span class="na">setBucket</span><span class="p">(</span><span class="nv">$bucket_name</span><span class="p">)</span>
+<span class="o">    -&gt;</span><span class="na">setKey</span><span class="p">(</span><span class="nv">$file_name</span><span class="p">)</span>
+<span class="o">    -&gt;</span><span class="na">setOption</span><span class="p">(</span><span class="s2">"CacheControl"</span><span class="p">,</span> <span class="s2">"max-age=3600"</span><span class="p">)</span>
+<span class="o">    -&gt;</span><span class="na">build</span><span class="p">();</span>
+<span class="nv">    $uploader</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+<span class="k" >    if</span><span class="p">(</span><span class="o">!</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">doesObjectExist</span><span class="p">(</span><span class="nv">$bucket_name</span><span class="p">,</span> <span class="nv">$file_name</span><span class="p">))</span> <span class="p">{</span>
+<span class="k" >        throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">"Multi-Part File could not Uploaded Successfully"</span><span class="p">);</span>
+<span class="p">}</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-list-a-buckets-content" class="anchor" href="#list-a-buckets-content"><span class="octicon octicon-link"></span></a>List a Bucket’s Content</h3>
+
+                  <p>Here we request an object iterator and loop over it to retrieve the desired information about the objects (object key, size, and modification time stamp in this case) . For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_listObjects">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre> <span class="nv">$iterator</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getIterator</span><span class="p">(</span><span class="s2">"ListObjects"</span><span class="p">,</span>
+<span class="k">                      array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">));</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$iterator</span> <span class="k">as</span> <span class="nv">$object</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">    print</span> <span class="nv">$object</span><span class="p">[</span><span class="s2">"Key"</span><span class="p">]</span><span class="o">.</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="o">.</span><span class="nv">$object</span><span class="p">[</span><span class="s2">"Size"</span><span class="p">]</span><span class="o">.</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="o">.</span><span class="nv">$object</span><span class="p">[</span><span class="s2">"LastModified"</span><span class="p">]</span><span class="o">.</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-head-object" class="anchor" href="#head-object"><span class="octicon octicon-link"></span></a>Head Object</h3>
+
+                  <p>Files in Amazon S3 &amp; LeoFS are called <code>objects</code> and are stored in buckets. A specific object is referred to by its key (i.e., name) and holds data. Here, we create a new object with the key name, <code>HEAD</code> request is metadata of that object. </p>
+
+                  <p>e.g. ContentLength, ETag, ContentType etc.. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_headObject">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$headers</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">headObject</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">,</span>
+<span class="s2">                                      "Key"</span> <span class="o">=&gt;</span> <span class="nv">$file_name</span><span class="p">));</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-download-object" class="anchor" href="#download-object"><span class="octicon octicon-link"></span></a>Download Object</h3>
+
+                  <p>A simple way to download object from LeoFS in to current directory by using SaveAs option. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_createBucket">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre> <span class="nv">$object</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getObject</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">,</span>
+<span class="s2">                                     "Key"</span> <span class="o">=&gt;</span> <span class="s2">"testFile"</span><span class="p">,</span>
+<span class="s2">                                     "SaveAs"</span> <span class="o">=&gt;</span> <span class="nv">$file_name</span><span class="p">));</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-copy-object" class="anchor" href="#copy-object"><span class="octicon octicon-link"></span></a>Copy Object</h3>
+
+                  <p>A simple way to copy object on LeoFS same bucket or different bucket We should use this method than by using the <code>doesObjectExist()</code> method. we are checking presence of copied object For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_copyObject">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">copyObject</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">,</span>
+<span class="s2">                                     "CopySource"</span> <span class="o">=&gt;</span> <span class="s2">"/</span><span class="si">{</span><span class="nv">$bucket_name</span><span class="si">}</span><span class="s2">/"</span><span class="o">.</span><span class="nv">$file_name</span><span class="p">,</span>
+<span class="s2">                                     "Key"</span> <span class="o">=&gt;</span> <span class="nv">$file_name</span><span class="o">.</span><span class="s2">".copy"</span><span class="p">));</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">doesObjectExist</span><span class="p">(</span><span class="nv">$bucket_name</span><span class="p">,</span> <span class="nv">$file_name</span><span class="o">.</span><span class="s2">".copy"</span><span class="p">)){</span>
+<span class="k">    throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">"File could not Copy Successfully</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
+<span class="p">}</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-delete-object" class="anchor" href="#delete-object"><span class="octicon octicon-link"></span></a>Delete Object</h3>
+
+                  <p>A simple way to delete object from LeoFS by probiding bucket and object name - key. Multiple object delete method currently not supported but you can perfrom similar operation via using iterator. For more detail information you can refer this <a href="https://docs.aws.amazon.com/aws-sdk-php/latest/class-Aws.S3.S3Client.html#_deleteObject">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">deleteObject</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">,</span>
+<span class="s2">                             "Key"</span> <span class="o">=&gt;</span> <span class="nv">$object</span><span class="p">[</span><span class="s2">"Key"</span><span class="p">]));</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-get-a-bucket-acl" class="anchor" href="#get-a-bucket-acl"><span class="octicon octicon-link"></span></a>Get a Bucket ACL</h3>
+
+                  <p>A simple way to get bucket ACL is given here. LeoFS basically supports <code>private</code>, <code>public-read</code> and <code>public-read-write</code> types of the ACL. Object level ACL is currently not supported yet. For more detail information you can refer this <a href="https://leo-project.net/leofs/docs/admin_guide.html?highlight=acl#canned-acl">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$acp</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getBucketAcl</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">));</span></pre></div>
+
+                  <h3>
+                    <a name="user-content-put-a-bucket-acl" class="anchor" href="#put-a-bucket-acl"><span class="octicon octicon-link"></span></a>Put a Bucket ACL</h3>
+
+                  <p>A simple way to <code>put ACL</code> and restrict different Bucket Acess by this method. For more detail information you can refer this <a href="https://leo-project.net/leofs/docs/admin_guide.html?highlight=acl#update-acl-update-a-acl-for-a-bucket-v0-16-0">page</a>.</p>
+
+                  <div class="highlight highlight-php"><pre><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">putBucketAcl</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">"ACL"</span> <span class="o">=&gt;</span> <span class="s2">"public-read-write"</span><span class="p">,</span>
+<span class="s2">                             "Bucket"</span> <span class="o">=&gt;</span> <span class="nv">$bucket_name</span><span class="p">));</span></pre></div>
+
+                  <h2>
+                    <a name="user-content-test-script-source-code" class="anchor" href="#test-script-source-code"><span class="octicon octicon-link"></span></a>Test Script Source Code:</h2>
+
+                  <p>This testing file include all well know methods of phpClient. This script required sample file name as “testFile” at following location in <code>$file_path = "../temp_data/$file_name";</code> your project Directory. Sample Operation testing Script which is located in downloaded project’s index.php file or you can access <a href="https://gist.github.com/Paras2009/7ca3ebfbdce977f7575a#file-leofs_php_client_testing_script" target="_blank">my Gist</a>.</p>
+                  <h2>
+                    <a name="user-content-test-script-output-" class="anchor" href="#test-script-output-"><span class="octicon octicon-link"></span></a>Test Script Output :</h2>
+
+                  <p>You can check sample output of this script via <a href="https://gist.github.com/Paras2009/7ca3ebfbdce977f7575a#file-leofs_php_client_testing_results" target="_blank">this link</a>.</p></article>
+              </div>
+              <!-- END.BODY -->
+              <div class="author_box">
+                <div class="author"><a href="https://in.linkedin.com/pub/paras-patel/45/451/a27" target="_blank">Paras Patel</a></div>
+                <div class="area">Software Development Engineer at Rakuten</div>
+              </div>
+            </div>
+
+            <!-- DISQUS -->
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+              var disqus_shortname = 'leo-project'; // required: replace example with your forum shortname
+              (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            <!-- DISQUS.end -->
+          </div>
+           <!-- Entry.end -->
+
+          <!-- SideBar -->
+          <div class="col-sm-4">
+            <div class="sidebar">
+              <div class="box">
+                <div class="sidebar_header">
+                  <h4>Menu</h4>
+                </div>
+                <ul class="sidebar_menu">
+                  <ul>
+                    <li><a href="blog-architecture.html">Architecture</a></li>
+                    <li><a href="blog-benchmark.html">Benchmark</a></li>
+                    <li><a href="blog-leofs-client.html">LeoFS Clients</a></li>
+                  </ul>
+                </ul>
+              </div>
+
+              <!-- Recent Posts  -->
+              <div class="box box2">
+                <div class="sidebar_header">
+                  <h4>Recent Posts</h4>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-7.html">Quick Start LeoFS with Java-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-6.html">Quick Start LeoFS with Ruby-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-5.html">Erlang User Conference 2014 in Stockholm</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-4.html">Quick Start LeoFS with PHP-client</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-3.html">Multi Data Center Replication</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-2.html">Benchmark Results of LeoFS v0.14.0</a>
+                </div>
+                <div class="recent">
+                  <a href="blog-entry-1.html">LeoFS Overview</a>
+                </div>
+              </div>
+
+              <!-- Tweets -->
+              <div class="box box3">
+                <a class="twitter-timeline" href="https://twitter.com/LeoFastStorage" data-widget-id="324312371701096448">Tweets by @LeoFastStorage</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^https:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              </div>
+
+              <!-- Archives
+                   <div class="box last">
+                     <div class="sidebar_header">
+                       <h4>Archives</h4>
+                     </div>
+                     <ul class="sidebar_menu">
+                       <ul>
+                         <li><a href="blog-201404.html">Apr 2014</a></li>
+                         <li><a href="blog-201304.html">Apr 2013</a></li>
+                       </ul>
+                     </ul>
+                   </div>
+                   -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- starts footer -->
+      <footer id="footer">
+        <div class="container">
+          <div class="row credits">
+            <div class="col-md-12">
+              <div class="row social">
+                <div class="col-md-12">
+                  <a href="https://www.facebook.com/org.leofs" target="_blank" class="facebook">
+                    <span class="socialicons ico1"></span>
+                    <span class="socialicons_h ico1h"></span>
+                  </a>
+                  <a href="https://twitter.com/LeoFastStorage" target="_blank" class="twitter">
+                    <span class="socialicons ico2"></span>
+                    <span class="socialicons_h ico2h"></span>
+                  </a>
+                  <a href="https://plus.google.com/u/0/communities/114746636425820194241" target="_blank" class="gplus">
+                    <span class="socialicons ico3"></span>
+                    <span class="socialicons_h ico3h"></span>
+                  </a>
+                </div>
+              </div>
+              <div class="row copyright">
+                <div class="col-md-12">
+                  © 2012-2017 <a href="../index.html">Leo Project</a>. All rights reserved. / Sponsored by <a href="https://global.rakuten.com/corp/" target="_blank">Rakuten, Inc</a>. and Supported by <a href="https://rit.rakuten.co.jp/" target="_blank">Rakuten Institute of Technology</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <script src="https://code.jquery.com/jquery-latest.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/theme.js"></script>
+  </body>
+</html>
